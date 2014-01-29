@@ -1,4 +1,7 @@
 <?php
+
+if(!defined('common-lib')) die();
+
 // example library
 function exSource($i, $nodisplay = array(), $htmlAppend = false) {
 	$js = file_get_contents("examples/$i.js");
