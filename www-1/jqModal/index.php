@@ -31,7 +31,7 @@
 <li><a href="#where">Download</a></li>
 <li><a href="#how">Usage</a></li>
 <li><a href="#examples">Examples</a></li>
-<li><a href="#etc">Changes and Issues</a></li>
+<li><a href="#etc">Etc.</a></li>
 </div>
 
 <div class="box">
@@ -61,7 +61,7 @@ jqModal is a plugin for <a href="http://jquery.com/">jQuery</a> to help you disp
 
 <div class="wwwwh">Why?</div>
 <p>
-There is no shortage of dialog scripts that dazzle their audience. Some will try to walk your dog. They can be rooted in unnecessary effects, rigid, and cumbersome. This is not where jqModal is headed! I wanted to write a simple modal framework. Something <em>lightweight</em> yet <em>powerful</em> and <em>flexible</em>. The original resembled something out of the assemly <a href="http://en.wikipedia.org/wiki/Demoscene">demoscene</a>. Since r16 the code is <a href="https://github.com/briceburg/jqModal/">community</a> maintainable.
+There is no shortage of dialog scripts that dazzle their audience. Some will try to walk your dog. They can be rooted in unnecessary effects, rigid, and cumbersome. This is not where jqModal is headed! I wanted to write a simple modal framework. Something <em>lightweight</em> yet <em>powerful</em> and <em>flexible</em>. The original strived to resemble an assembly <a href="http://en.wikipedia.org/wiki/Demoscene">demoscene</a> binary. Since r16 jqModal is readable and <a href="https://github.com/briceburg/jqModal/">community</a> maintainable.
 </p>
 <p>
 If you like jqModal, please consider a dontation to support its development:
@@ -87,7 +87,7 @@ Download the <em><a href="jqModal.js">Plugin</a></em> (jqModal.js) [jQuery >= <s
 <br />
 Download the <em><a href="jqModal.css">Styling</a></em> (jqModal.css) 
 <br /><br />
-<strong>[PREVIOUS RELEASES]</strong> available <a href="https://github.com/briceburg/jqModal/tree/master/releases">here</a>.
+<strong>[<a href="https://github.com/briceburg/jqModal/">SOURCECODE</a>] &middot; [<a href="https://github.com/briceburg/jqModal/blob/master/CHANGELOG.md">CHANGELOG</a>] &middot; [<a href="https://github.com/briceburg/jqModal/tree/master/releases">RELEASES</a>]</strong>
 <br /><br />
 <strong>[OPTIONAL]</strong> <em><a href="../jqDnR/">Drag'n'Resize Plugin</a></em> (jqDnR.js - 874 bytes) - any other <a href="http://jqueryui.com/draggable/">drag</a> & <a href="http://wayfarerweb.com/jquery/plugins/animadrag/">drop</a> plugin will work.
 </p>
@@ -474,143 +474,54 @@ Alexandre Plennevaux has posted a <a href="http://www.pixeline.be/blog/2008/java
 
 <div class="wwwwh">Etc.</div>
 
-<p><em>Previous Releases</em></p>
-All revisions of jqModal are available are available <a href="release/">here</a>.
-
 <a class="anchor" name="etc"></a>
 
+
+<br /><br />
+<p><em>Support, Bugs, Contributing, Community</em></p>
+
 <dl>
-<dt>Known Issues, Pending Fixes</dt>
+
+<dt>Support</dt>
 <dd>
 <ul>
-<li>Update jqDnR, make squares draggable</li>
-<li>Demonstrate an enhanced slideshow</li>
-<li>Incorporate "smart" modal focus routine</li>
-<li>Abstract IE6 workarounds from base CSS, use conditional includes</li>
+<li>For support, please post to stackoverflow using the jqmodal tag:</li>
+<li><a href="http://stackoverflow.com/questions/ask?tags=jqmodal">http://stackoverflow.com/questions/ask?tags=jqmodal</a></li>
 </ul>
 </dd>
 
-<dt>R14 Changes</dt>
-<dd>
-<p>
-Changes include smart detection of the triggering element. This allows you to call $.jqmShow() and $.jqmHide() within the event context of a non-initialized triggering element, and that element will mask a proper initialized trigger.
-</p>
-<p>
-This (very minor) change is intended to improve the plugin's natural behavior -- that is; to behave as expected. It will make "live querying" modal triggers easier for some.
-</p>
-<p>
-A simple example of the new behavior is shown below. It will show and load the remote content of all anchor links into the modal window whenever they are clicked.
-</p>
-
-<pre>
-&lt;a href=&quot;http://my.ajax/content&quot;&gt;open modal with my.ajax/content&lt;/a&gt;
-
-&lt;div id=&quot;jqModal&quot; class=&quot;jqmWindow&quot; style=&quot;display: none;&quot;&gt;&lt;/div&gt;
-
-&lt;script type=&quot;text/javascript&quot;&gt;
-
-jQuery().ready(function($){
- 
-  // initialize modal,
-  // load the container with a remote return based on the &#039;href&#039;
-  //    attribute of triggering element(s)
- 
-  $(&#039;#jqModal&#039;).jqm({ajax:&#039;@href&#039;});
- 
- 
-  // open the modal whenever anchor links on the page are clicked
-   $(&#039;a&#039;).live(&#039;click&#039;,function(){
-      $(&#039;#jqModal&#039;).jqmShow();
-  });
- 
- 
-});
-&lt;/script&gt;
-</pre>
-
-</dd>
-
-
-<dt>R13 Changes</dt>
+<dt>Issues</dt>
 <dd>
 <ul>
-<li>Minor code optimizations</li>
-<li>Fixed potential exception in modal focus routine</li>
-<li>Overlays of modal dialogs are no longer automatically styled with a "wait" cursor. Use CSS to control</li>
-<li>Exposed overiding of default parameter values via the $.jqm.params global</li>
+<li>To report issues, please use the github issue tracker:</li>
+<li><a href="https://github.com/briceburg/jqModal/issues">https://github.com/briceburg/jqModal/issues</a></li>
 </ul>
 </dd>
 
-<dt>R12 Changes</dt>
+
+<dt>Contributing</dt>
 <dd>
 <ul>
-<li>Now dual licensed under the MIT and GPL licenses</li>
-<li>Compatibility with jQuery 1.2.6</li>
-<li>Removed zIndex parameter</li>
-<li>Subsequent $.jqm calls now update configuration</li>
-<li>AJAX target is now cleared before load</li>
-<li>Added ajaxText parameter</li>
+<li>If you would like to contribute themes or ideas please do! This website's code is on github:</li>
+<li><a href="https://github.com/iceburg-net/jquery.iceburg.net/tree/master/www-1/jqModal">https://github.com/iceburg-net/jquery.iceburg.net/tree/master/www-1/jqModal</a></li>
 </ul>
 </dd>
 
-<dt>R11 Changes</dt>
+
+<dt>Community</dt>
 <dd>
 <ul>
-<li>added toTop argument to break z-Index container restraints (<a href="toTop.html">demo</a>)</li>
-<li>improved focus method tolerance</li>
-<li>overlay now takes z-Index stacking order precedence</li>
+<li>
+  jqModal is an open project. <strong>Community embrace is its lifeblood</strong>. Please feel free to help answer questions on <a href="http://stackoverflow.com/questions/tagged/jqmodal">stackoverflow</a> or submit your ideas to our <a href="https://github.com/briceburg/jqModal/issues">issue tracker</a>. 
+  <br /><br />
+  <em>Your involvement is appreciated!</em>
+</li>
 </ul>
 </dd>
 </dl>
 
-<div class="src">
-<div class="js">
-<a href="#">Earlier Release Changes</a>
-
-<pre>
-
-<p><em>R10 Changes</em>;</p>
-<ul>
-<li>focus element re-calculated every modal click to prevent IE error</li>
-<li>ie6 sets body width to 100%</li>
-<li>Require fixed pushStack,$.browser.version -- jQuery 1.1.3.1 MINIMUM!</li>
-<li>compressible with a javascript packer</li>
-<li>HTTPS/SSL served iFrame content will not throw warnings in IE</li>
-</ul>
-
-<p><em>R8,R9 Changes</em></p>
-<ul>
-<li><em>Updated CSS</em>, Sync up.</li>
-<li>Fixed IE crash when ajax loaded elements used as trigger(s)</li>
-<li>IE6 - overlay now covers dialog only, allowing page interaction when overlay: 0</li>
-</ul>
-
-<p><em>R7 Changes</em></p>
-<ul>
-<li>Added $.jqmShow, $.jqmHide to manually hide/show dialogs</li>
-<li>Added $.jqmAddTrigger and $.jqmAddClose to bind show/hide to elements</li>
-<li>Added onLoad callback (called after ajax return)</li>
-<li>Added support for handling multiple dialogs @ once across ALL functions</li>
-<li>Removed auto-fire parameter, replaced via $(e).jqm().jqmShow()</li>
-<li>Removed $.jqmClose()</li>
-<li>Removed "wrapClass" parameter, updated base CSS</li>
-<li>CSS z-index value takes priority over "zIndex" parameter</li>
-<li>Triggers can hide, show, or hide AND show jqModals</li>
-<li>Overlays+IE6 iframe are now fixed positioned - support for ie6 quirks + standards mode</li>
-<li>Internal Improvements, no event data</li>
-</ul>
-</pre>
-
-</div>
-</div>
-
 <br /><br />
 
-
-<p><em>Contributing</em>;</p>
-<hr />
-I would like to eventaully host a HTML+CSS repository of dialog, window, and notice themes to be used in conjunction with jqModal. If you would like to contribute themes or ideas please do! I am a very slow designer and could use your help ;)
-Feel free to email me @ &lt;bhb@iceburg.net&gt;.
 
 <script type="text/javascript">
 
