@@ -83,4 +83,4 @@ dt { color: #040; font-weight: bold }
 dd { margin: 0 0 20px 0;}
 
 p.pv {margin: 0.2em 0.2em; font-size: 80%; color: #060; }
-p.code {margin: 0.2em 0.2em; font-size: 80%; font-family: monospace; }
+p.code {margin: 0.2em 0.2em; font-family: monospace; font-weight: bold;}
