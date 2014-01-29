@@ -1,0 +1,36 @@
+table {
+	background-color: #4D4D4D;
+	width: 90%;
+	border: 1px solid #000;
+	text-align: left;
+}
+
+table tr td {
+	color: #FFF;
+	padding: 5px;
+}
+
+table thead tr th {
+	padding: 5px;
+	background-color: #6E6E6E;
+}
+
+
+table thead tr th.header {
+	background-image: url(img-header-bg.png);
+	background-repeat: no-repeat;
+	border: 1px solid #FFF;
+	border-bottom: none;
+	padding: 8px 0 0 30px;
+	height: auto;
+}
+
+table thead tr th.headerSortUp {
+	background-image: url(img-header-asc.png);
+}
+
+table thead tr th.headerSortDown {
+	background-image: url(img-header-desc.png);
+}	
+
+.old { text-decoration: line-through; }

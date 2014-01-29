@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jqValidate ( Simple client-side form validation with jQuery ) </title>
+
+<script type="text/javascript" src="../common/js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="jqValidate.js"></script>
+
+<script type="text/javascript">
+$().ready(function(){
+	
+	// Initialize Forms for Client Side Validation
+	$('form').jqValidate();
+	
+	
+	// [optional] Toggling of client side validation via checkbox
+	$('input[@name=force]').click(function(){
+		if(this.checked)
+			// when checked; disable client side validation of form containing force checkbok
+			$(this).jqvDisable();
+		else
+			// when unchecked; re-enable client side validation
+			$(this).jqvEnable();
+	}).each(function(){if (this.checked) $(this).jqvDisable(); });
+});
+</script>
+
+<style type="text/css">
+input.pvInvalid,
+select.pvInvalid {
+	border: 1px solid red;
+}
+</style>
+
+</head>
+<body>
+
+
+<h2>jqValidate - Simple client side form validation with <a href="http://jquery.com/">jQuery</a>.</h2>
+<div style="float: right;">By <a href="http://iceburg.net">Brice Burgess</a></div>
+<ul><li>Unobtrusive and Compliant (class based)</li><li>Multiscoped (supports multiple forms per page)</li><li>Open Source (MIT license)</li></ul>
+<a href="jqValidate.js" title="download">download</a> +r1 (jqValidate.js)
+<hr />
+
+<form>
+	Number, NotEmpty;  <br />
+	<input type="text" class="pvNumber pvEmpty" />
+	
+	<p><input type="submit"></p>
+</form>
+
+<hr />
+
+<form>
+	<input type="text" />
+	
+	<p><input type="submit"></p>
+</form>
+
+<hr />
+
+<form>
+	Email; <br />
+	<input type="text" class="pvEmail" />
+	
+	<br />Check to Ignore/Disable Validation;
+	<input type="checkbox" name="force" />
+	
+	<p><input type="submit"></p>
+</form>
+
+<hr />
+(( view the source luke ))
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+
+
+/**** CLIP REGION  *****/
+#example7 div.revolve { 
+	position: relative;	/* must be relative or absolute */
+	overflow: hidden;	/* necessary for revolver behavior */
+	width: 300px; 		/* width of clip region */
+
+}
+
+
+/* example7 specific styling [optional] */
+#example7 div.revolve {
+	clear: both;		
+	margin: 10px 30px;
+	border: 1px solid #000;
+}
+
+#example7 div.revolve img {
+	vertical-align: middle;
+}
+
+
+/**** SCROLL COMPONENTS  *****/
+#example7 div.button {
+	float: left;
+	
+	text-align: center;
+	color: #FFF;
+	background: #000;
+	cursor: pointer;
+	
+	margin: 10px 10px;
+	padding: 0 30px;
+}

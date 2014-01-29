@@ -1,0 +1,15 @@
+#example2 {
+	width: 360px;
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+#example2 .revolve-next, #example2 .revolve-prev {
+	position: absolute;
+	background-color: red;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example2 .revolve-next { right: 0; }

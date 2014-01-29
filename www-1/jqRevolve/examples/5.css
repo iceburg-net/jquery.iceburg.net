@@ -1,0 +1,18 @@
+#example5 {
+	width: 520px;
+	
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+#example5 .revolve-content img { vertical-align: middle; }
+
+#example5 .revolve-next, #example5 .revolve-prev {
+	position: absolute;
+	background-color: green;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example5 .revolve-next { right: 0; }

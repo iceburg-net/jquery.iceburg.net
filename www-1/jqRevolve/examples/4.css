@@ -1,0 +1,18 @@
+#example4 div.carousel {
+	width: 520px;
+	
+	margin: 10px 24px;
+	border: 1px solid black;
+	
+	height: 20px; /* FIXED HEIGHT - LOOK! */
+}
+
+#example4 .revolve-next, #example4 .revolve-prev {
+	position: absolute;
+	background-color: blue;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example4 .revolve-next { right: 0; }

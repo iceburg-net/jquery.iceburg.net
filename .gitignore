@@ -1,0 +1,15 @@
+.DS_Store
+
+#### LANG
+/.lein-repl-history
+/repl
+
+#### IDE
+/.project
+/.classpath
+/.buildpath
+/.settings/
+
+
+
+

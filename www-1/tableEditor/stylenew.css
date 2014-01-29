@@ -1,0 +1,52 @@
+table {
+	border: 1px solid #000;
+	border-spacing: 0;
+	text-align: left;
+	margin-top: 5px;
+}
+
+table tr td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table thead tr th {
+	background: #000;
+	padding: 0 0 0 3px;
+	height: 30px;
+	color: #e0e0e0;
+	white-space: nowrap;
+}
+
+
+table thead tr th.header {
+	background-image: url(bg.png);
+	background-repeat: no-repeat;
+	border-bottom: none;
+	padding: 0 8px 0 35px;
+	border-left: #aaa solid 1px;
+	cursor: pointer;
+}
+
+table thead tr th.ASC {
+	background-image: url(bg_asc.png);
+}
+
+table thead tr th.DESC {
+	background-image: url(bg_desc.png);
+}	
+
+table tr td input[type="text"] {
+	width: 12em;
+}
+
+.key { 
+	display: none;
+}
+
+input.pvInvalid, select.pvInvalid
+{
+	border: 1px solid red;
+}
+.newRow { background: #FFF6E5; }
+button.b {margin-left: 3em; font-weight: bold; background-color: #777; color: #fff; }

@@ -1,0 +1,33 @@
+#example3 div.carousel {
+		/* MUST be relative or absolute! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	position: relative; 
+	
+		/* MUST be hidden! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	overflow: hidden;
+	
+	width: 520px;
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+#example3 .revolve-content {
+		/* MUST be relative or absolute! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	position: absolute;
+	z-index: 5;
+}
+
+#example3 .revolve-next, #example3 .revolve-prev {
+	position: absolute;
+	background-color: blue;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example3 .revolve-next { right: 0; }
