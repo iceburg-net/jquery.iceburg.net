@@ -76,7 +76,7 @@ If you like jqModal, please consider a dontation to support its development:
 
 <div class="wwwwh">When?</div>
 <p>
-Current Version: <em>2014.01.28 +r16</em>
+Current Version: <em>2014.01.30 +r17</em>
 <br /> Copyright &copy; 2007-<?php echo date('Y'); ?> Brice Burgess - released under both the <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a> and <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> licenses.
 </p>
 
@@ -234,6 +234,15 @@ NOTE: $.jqm() is usually called ONCE per modal. Subsequent calls to $.jqm() will
 </dd>
 </dl>
 
+<p><em>Defaults</em></p>
+<dl>
+<dt>$.jqm</dt>
+<dd>
+You may override default option values and the focus function by altering <strong>$.jqm.params</strong> and <strong>$.jqm.focusFunc</strong> accordingly.
+</dd>
+</dl>
+
+
 <p><em>Options</em></p>
 
 Options allow tailoring the behavior of modals. 
@@ -274,14 +283,6 @@ If a more complicated routine is desired, use the onShow() callback.
  <p class="pv">(string|false) - default: false</p>
 </dd>
 
-<!-- 
-<dt>ajaxText</dt>
-<p class="pv">NOTE: ajaxText is applicable only if the ajax parameter is passed.</p>
-<dd>Text to display while waiting for ajax returned content. May include HTML (such as an loading image). E.g. $.jqm({ajaxText: '&lt;marquee style="width: 1.5em;"&gt;.. ... .&lt;/marquee&gt;'});</p>
- <p class="pv">(string) - default: ''</p>
-</dd>
- -->
-
 <dt>target</dt>
 <dd>
  <p class="pv">NOTE: target is applicable only if the ajax parameter is passed.</p>
@@ -292,6 +293,12 @@ If a more complicated routine is desired, use the onShow() callback.
       <li>(false) ajax return overwrites dialog's innerHTML</li>
     </ul>
  <p class="pv">(string|false) - default: false</p>
+</dd>
+
+<dt>ajaxText</dt>
+<p class="pv">NOTE: ajaxText is applicable only if the ajax parameter is passed.</p>
+<dd>Text shown while waiting for ajax return. Replaces HTML content of `target` element. May include HTML (such as an loading image). E.g. $.jqm({ajaxText: '&lt;marquee style="width: 1.5em;"&gt;.. ... .&lt;/marquee&gt;'});</p>
+ <p class="pv">(string) - default: ''</p>
 </dd>
 
 <dt>modal</dt>
@@ -349,8 +356,8 @@ if(hash.c.overlay > 0)
 // make modal visible
 hash.w.show();
 		
-// attempt to focus on first input in modal
-$(':input:visible:first',hash.w).focus();
+// call focusFunc (attempts to focus on first input in modal)
+$.jqm.focusFunc(hash.w);
 		
 return true;
 }
@@ -445,7 +452,7 @@ This example demonstrates the ease in which stylish windows are constructed. All
 <div class="example">
 4. <em>Modal, Nested Modal</em> -- a. <a href="examples/4a.html" class="ex4Trigger">view</a> (4a.html), b. <a href="examples/4b.html" class="ex4Trigger">view</a> (4b.html)
 <br/>
-Focus can be forced on a dialog, making it a true "modal" dialog. Also exemplified is the <strong>ajax attribute selector</strong> (using @href). Any DOM attribute can be used to extract the ajax url (see the <a href="README">documentation</a>).
+Focus can be forced on a dialog, making it a true "modal" dialog. <strong>NOTE</strong> you may override the focus function via `$.jqm.focusFunc`. Also exemplified is the <strong>ajax attribute selector</strong> (using @href). Any DOM attribute can be used to extract the ajax url (see the <a href="README">documentation</a>).
 </div>
 <?php exSource('4',array(),'<a href="examples/4a.html" class="ex4Trigger">view</a> (4a.html)'."\n".' <a href="examples/4b.html" class="ex4Trigger">view</a> (4b.html)'); ?>
 
