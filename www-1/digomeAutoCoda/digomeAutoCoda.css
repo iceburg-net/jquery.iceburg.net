@@ -1,0 +1,59 @@
+/****************************
+	Digome Autocoda
+*****************************/
+
+
+div.autocoda-pager 
+{
+	text-align: center;
+	margin-top: 1em;
+}
+
+div.autocoda-pager ul {
+	list-style-type: none;
+	border: 1px solid #000;
+}
+
+div.autocoda-pager ul li {
+	/* cross-browser inline-block styling -
+	     may separate out zoom + display: inline to IE6 stylesheet */
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	*display: inline;
+	
+	height: 1em;
+	margin: 0 1.5em;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+
+div.autocoda-pager ul li.autocoda-active {
+	font-weight: bold;
+	font-size: 125%;
+}
+
+div.autocoda-page {
+	display: none;
+}
+
+div.autocoda-pager ul li.autocoda-read-more {
+	width: 100%;
+	height: 100%;
+	padding: 8px 0;
+	margin: 0 0;
+	
+	color: #FFF;
+	background: #3CA1E1;
+	
+	font-weight: bold;
+}
+
+div.autocoda-pager ul li.autocoda-read-more.autocoda-active {
+	font-size: 100%;
+	color: #ccc;
+	background: #FFF;
+	cursor: auto;
+}

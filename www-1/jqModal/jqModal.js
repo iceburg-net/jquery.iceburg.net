@@ -6,11 +6,11 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  * 
- * $Version: 2014.03.27 +r18
+ * $Version: 1.0.2 (2014.04.10 +r19)
  * Requires: jQuery 1.2.3+
  */
 
-(function(jQuery, window, undefined) {
+(function($) {
 	
 	/**
 	 * Initialize a set of elements as "modals". Modals typically are popup dialogs,
@@ -336,4 +336,4 @@
 		focusFunc: function(e) { $(':input:visible:first',e).focus(); return false; }
 	};
 	
-})( jQuery, window );
+})( jQuery );
