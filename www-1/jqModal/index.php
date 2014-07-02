@@ -57,6 +57,7 @@ jqModal is a plugin for <a href="http://jquery.com/">jQuery</a> to help you disp
 <li>Developer friendly - Extensible through callbacks to make anything possible (gallery slideshows, video-conferencing, &c)</li>
 <li>Simple support for remotely loaded content (aka "ajax")</li> 
 <li>Multiple Modals per page (including nested Modal-in-Modal)</li>
+<li>Supported by all browsers capable of running jQuery 1.2.3+</li>
 </ul>
 
 <div class="wwwwh">Why?</div>
