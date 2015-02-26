@@ -55,7 +55,7 @@ jqModal is a plugin for <a href="http://jquery.com/">jQuery</a> to help you disp
 <li>Designer Frieldly - Use *your* HTML+CSS for Layout and Styling</li>
 <li>Translator/i18n friendly - No hardcoded English strings</li>
 <li>Developer friendly - Extensible through callbacks to make anything possible (gallery slideshows, video-conferencing, &c)</li>
-<li>Simple support for remotely loaded content (aka "ajax")</li> 
+<li>Simple support for remotely loaded content (aka "ajax")</li>
 <li>Multiple Modals per page (including nested Modal-in-Modal)</li>
 <li>Supported by all browsers capable of running jQuery 1.2.3+</li>
 </ul>
@@ -77,7 +77,7 @@ If you like jqModal, please consider a dontation to support its development:
 
 <div class="wwwwh">When?</div>
 <p>
-Current Version: 1.1.0 <em>2014.07.03 +r21</em>
+Current Version: 1.2.0 <em>2014.07.03 +r22</em>
 <br /> Copyright &copy; 2007-<?php echo date('Y'); ?> Brice Burgess - released under both the <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a> and <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> licenses.
 </p>
 
@@ -86,15 +86,15 @@ Current Version: 1.1.0 <em>2014.07.03 +r21</em>
 <p>
 Download the <em><a href="jqModal.js">Plugin</a></em> (jqModal.js) [jQuery >= <strong>1.2.3</strong>]
 <br />
-Download the <em><a href="jqModal.css">Styling</a></em> (jqModal.css) 
+Download the <em><a href="jqModal.css">Styling</a></em> (jqModal.css)
 <br /><br />
 <strong>[<a href="https://github.com/briceburg/jqModal/">SOURCECODE</a>] &middot; [<a href="https://github.com/briceburg/jqModal/blob/master/CHANGELOG.md">CHANGELOG</a>] &middot; [<a href="https://github.com/briceburg/jqModal/tree/master/releases">RELEASES</a>]</strong>
 <br /><br />
 <strong>[OPTIONAL]</strong> <em><a href="../jqDnR/">Drag'n'Resize Plugin</a></em> (jqDnR.js - 874 bytes) - any other <a href="http://jqueryui.com/draggable/">drag</a> & <a href="http://wayfarerweb.com/jquery/plugins/animadrag/">drop</a> plugin will work.
 </p>
 
-<strong>Image Caching NOTE</strong>; Some browsers do not preload background images and image elements if they are hidden which can 
-effect the responsiveness of your dialogs. This page uses an OPTIONAL workaround to get around this issue. It preloads dialog decoration images for faster display. 
+<strong>Image Caching NOTE</strong>; Some browsers do not preload background images and image elements if they are hidden which can
+effect the responsiveness of your dialogs. This page uses an OPTIONAL workaround to get around this issue. It preloads dialog decoration images for faster display.
 See the code used by clicking the HTML tab below;
 <div class="src">
 <div class="html">
@@ -102,7 +102,7 @@ See the code used by clicking the HTML tab below;
 <pre>
 &lt;!-- optional: image cacheing. Any images contained in this div will be
 	loaded offscreen, and thus cached --&gt;
-	
+
 &lt;style type="text/css"&gt;
 /* Caching CSS created with the help of;
 	Klaus Hartl &lt;klaus.hartl@stilbuero.de&gt; */
@@ -128,7 +128,7 @@ See the code used by clicking the HTML tab below;
 
 <!-- optional: image caching. Any images contained in this div will be
 	loaded offscreen, and thus cached.-->
-	
+
 <style type="text/css">
 /* Caching CSS courtesf of;
 	Klaus Hartl <klaus.hartl@stilbuero.de> */
@@ -160,7 +160,7 @@ See the code used by clicking the HTML tab below;
 <dt>1. Add modal element(s) to your page</dt>
 <dd>Modal elements are usually &lt;div&gt; containers with their visibility set to hidden. CSS is used for styling and position. Modals are displayed("shown") when a trigger event occurs. Their contents can be inline (hardcoded in the HTML) or added via ajax when the modal is shown.</dd>
 <dt>2. Initialize your modal(s)</dt>
-<dd>Modal elements must be initialized via <strong>$.jqm()</strong> before they can be shown. You can customize your modals by passing an options object (e.g. <strong>$('#modal').jqm({modal: true, trigger: 'a.showModal'});</strong>). 
+<dd>Modal elements must be initialized via <strong>$.jqm()</strong> before they can be shown. You can customize your modals by passing an options object (e.g. <strong>$('#modal').jqm({modal: true, trigger: 'a.showModal'});</strong>).
 <p />
 NOTE: $.jqm() is usually called ONCE per modal. Subsequent calls to $.jqm() will update the modal(s) options using <a href="http://api.jquery.com/jquery.extend/">jQuery.extend()</a>.</dd>
 <dt>3. Trigger your modal</dt>
@@ -170,9 +170,9 @@ NOTE: $.jqm() is usually called ONCE per modal. Subsequent calls to $.jqm() will
 <p><em>Functions</em></p>
 <dl>
 <dt>jqm</dt>
-<dd> 
+<dd>
  Initialize element(s) as modals. Accepts an options object. If a modal is already initialized, the call will update its options via <a href="http://api.jquery.com/jquery.extend/">jQuery.extend()</a>.
- 
+
  <p class="code">
  $('#dialog').jqm(); <br />
  $('.dialogs').jqm({ajax:'@href',modal:true});
@@ -180,29 +180,29 @@ NOTE: $.jqm() is usually called ONCE per modal. Subsequent calls to $.jqm() will
 </dd>
 
 <dt>jqmShow</dt>
-<dd> 
+<dd>
  Show modal element(s). Will not execute on opened modals.
- 
+
  <p class="code">
  $('#dialog').jqmShow(); <br />
  $('.dialogs').jqmShow();
  </p>
- 
+
 </dd>
 
 <dt>jqmHide</dt>
-<dd> 
+<dd>
  Hide modal element(s). Will not execute on closed modals.
- 
+
  <p class="code">
  $('#dialog').jqmHide(); <br />
  $('.dialogs').jqmHide();
  </p>
- 
+
 </dd>
 
 <dt>jqmAddTrigger</dt>
-<dd> 
+<dd>
  Called on a modal(s). Passed element(s) will show the modal(s) when clicked.
   Accepts;
   <ul>
@@ -210,43 +210,48 @@ NOTE: $.jqm() is usually called ONCE per modal. Subsequent calls to $.jqm() will
       <li>(object) A jQuery Collection</li>
       <li>(object) A DOM element</li>
   </ul>
- 
+
  <p class="code">
  $('#dialog').jqmAddTrigger('.openDialog'); <br />
  $('.dialogs').jqmAddTrigger($('#openDialogs a'));
  </p>
- 
+
 </dd>
 
 <dt>jqmAddClose</dt>
-<dd> 
+<dd>
  Called on a modal(s). Passed element(s) will close the modal(s) when clicked.
   Accepts;<ul>
       <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
       <li>(object) A jQuery Collection</li>
       <li>(object) A DOM element</li>
   </ul>
- 
+
  <p class="code">
  $('#dialog').jqmAddClose('.hideDialog'); <br />
  $('.dialogs').jqmAddClose($('#hideDialogs a'));
  </p>
- 
+
 </dd>
 </dl>
 
 <p><em>Defaults</em></p>
 <dl>
-<dt>$.jqm</dt>
+<dt>$.jqm.params</dt>
 <dd>
-You may override default option values and the focus function by altering <strong>$.jqm.params</strong> and <strong>$.jqm.focusFunc</strong> accordingly.
+Default option values passed to all modals. Override by altering or providing your own.
+</dd>
+
+<dt>$.jqm.focusFunc</dt>
+<dd>
+The "focus function" called whenever modal:true dialogs are active. Alter behavior by overloading.
 </dd>
 </dl>
 
 
 <p><em>Options</em></p>
 
-Options allow tailoring the behavior of modals. 
+Options allow tailoring the behavior of modals.
 
 <dl>
 <dt>overlay</dt>
@@ -261,7 +266,7 @@ Options allow tailoring the behavior of modals.
 </dd>
 
 <dt>closeClass</dt>
-<dd>Child elements of the modal with a CSS class of closeClass will close the modal when clicked.  
+<dd>Child elements of the modal with a CSS class of closeClass will close the modal when clicked.
  <p class="pv">(string|false) - default: 'jqmClose'</p>
 </dd>
 
@@ -280,7 +285,7 @@ Options allow tailoring the behavior of modals.
 <dd>Modal contents will be loaded remotely via ajax if passed. You can pass the URL
 (e.g. $.jqm({ajax:'remote/dialog.html'}) or extract it from an attribute of the triggering element.
 For instance, $(.jqm({ajax:'@href'}) would grab contents from `foo/bar.html` if the triggering element was &lt;a href="foo/bar.html"&gt;Open Modal&lt;/a&gt;.
-If a more complicated routine is desired, use the onShow() callback.    
+If a more complicated routine is desired, use the onShow() callback.
  <p class="pv">(string|false) - default: false</p>
 </dd>
 
@@ -303,14 +308,14 @@ If a more complicated routine is desired, use the onShow() callback.
 </dd>
 
 <dt>modal</dt>
-<dd>Restricts input (mouse clicks, keypresses) to the modal. If false, and if overlay is enabled, clicking the overlay will close the modal.  
+<dd>Restricts input (mouse clicks, keypresses) to the modal. If false, and if overlay is enabled, clicking the overlay will close the modal.
  <p class="pv">(boolean) - default: false</p>
 </dd>
 
 <dt>toTop</dt>
 <dd>When true; places the dialog element as a direct child of &lt;body&gt; when shown. This was added to help overcome z-Index stacking order issues.
 <br />
-See the <a href="toTop.html">toTop demo</a> to learn what to do if your overlay covers the entire page *including* the modal dialog!  
+See the <a href="toTop.html">toTop demo</a> to learn what to do if your overlay covers the entire page *including* the modal dialog!
  <p class="pv">(boolean) - default: false</p>
 </dd>
 
@@ -323,11 +328,11 @@ See the <a href="toTop.html">toTop demo</a> to learn what to do if your overlay 
       <li>o: (jQuery object) The overlay element</li>
       <li>t: (DOM object) The triggering element
     </ul>
-  	
+
 </dd>
 
 <dt>onShow (callback)</dt>
-<dd> 
+<dd>
  Called when a modal is to be shown. Responsible for showing a modal and overlay.
 
  <p class="code">
@@ -338,37 +343,37 @@ See the <a href="toTop.html">toTop demo</a> to learn what to do if your overlay 
    }}); <br />
  </p>
  <p class="pv">(function|false) - default: false</p>
- 
+
  	<pre>
 From jqModal.js >
 // onShow callback. Responsible for showing a modal and overlay.
-//  return false to stop opening modal. 
-		
+//  return false to stop opening modal.
+
 // hash object;
 //  w: (jQuery object) The modal element
-//  c: (object) The modal's options object 
+//  c: (object) The modal's options object
 //  o: (jQuery object) The overlay element
 //  t: (DOM object) The triggering element
-		
+
 // display the overlay (prepend to body) if not disabled
 if(hash.c.overlay > 0)
   hash.o.prependTo('body');
-			
+
 // make modal visible
 hash.w.show();
-		
+
 // call focusFunc (attempts to focus on first input in modal)
-$.jqm.focusFunc(hash.w);
-		
+$.jqm.focusFunc(hash.w,null);
+
 return true;
 }
 	</pre>
 </dd>
 
 <dt>onHide (callback)</dt>
-<dd> 
+<dd>
  Called when a dialog is to be hidden. Responsible for hiding a modal and overlay.
- 
+
  <p class="code">
  $('#dialog').jqm({ <br />
    onHide: function(hash) { <br />
@@ -382,31 +387,31 @@ return true;
 From jqModal.js >
 onHide = function(hash){
 // onHide callback. Responsible for hiding a modal and overlay.
-//  return false to stop closing modal. 
-	
+//  return false to stop closing modal.
+
 // hash object;
 //  w: (jQuery object) The modal element
-//  c: (object) The modal's options object 
+//  c: (object) The modal's options object
 //  o: (jQuery object) The overlay element
 //  t: (DOM object) The triggering element
-	
+
 // hide modal and if overlay, remove overlay.
 hash.w.hide() && hash.o && hash.o.remove();
-	
+
 return true;
 }
 	</pre>
 
 <dt>onLoad (callback)</dt>
-<dd> 
+<dd>
  Called right after ajax content is loaded.
- 
+
  <p class="code">
  // onLoad : assign Mike Alsup's most excellent <a href="http://www.malsup.com/jquery/form/">ajaxForm</a> plugin to the returned form element(s). <br />
  var myLoad = function(hash){ $('form',hash.w).ajaxForm(); }; <br />
  $('#dialog').jqm({onLoad:myLoad}); <br />
  </p>
-    
+
  <p class="pv">(function|false) - default: false</p>
 </dd>
 
@@ -453,7 +458,7 @@ This example demonstrates the ease in which stylish windows are constructed. All
 <div class="example">
 4. <em>Modal, Nested Modal</em> -- a. <a href="examples/4a.html" class="ex4Trigger">view</a> (4a.html), b. <a href="examples/4b.html" class="ex4Trigger">view</a> (4b.html)
 <br/>
-Focus can be forced on a dialog, making it a true "modal" dialog. <strong>NOTE</strong> you may override the focus function via `$.jqm.focusFunc`. Also exemplified is the <strong>ajax attribute selector</strong> (using @href). Any DOM attribute can be used to extract the ajax url (see the <a href="README">documentation</a>).
+Focus can be forced on a dialog, making it a true "modal" dialog. The <strong>$.jqm.focusFunc</strong> is called to lock activity to the active modal. This example also exhibits the <strong>ajax attribute selector</strong> (using @href). Any DOM attribute can be used to extract the ajax url (see the <a href="README">documentation</a>).
 </div>
 <?php exSource('4',array(),'<a href="examples/4a.html" class="ex4Trigger">view</a> (4a.html)'."\n".' <a href="examples/4b.html" class="ex4Trigger">view</a> (4b.html)'); ?>
 
@@ -461,7 +466,7 @@ Focus can be forced on a dialog, making it a true "modal" dialog. <strong>NOTE</
 <div class="example">
 5. <em>Multi-Show/Hide</em> -- a. <a href="#" id="ex5show">view</a> (show all), b. <a href="#" id="ex5hide">view</a> (hide all), c. <a href="#" id="ex5multi">view</a> (show+hide some)
 <br/>
-Triggers can cotrol more than 1 jqModal. You can assign new show or hide triggers to any jqModal element with $.jqmAddTrigger and $.jqmAddClose. 
+Triggers can cotrol more than 1 jqModal. You can assign new show or hide triggers to any jqModal element with $.jqmAddTrigger and $.jqmAddClose.
 </div>
 <?php exSource('5',array(),'<a href="#" id="ex5show">view</a> (show all)'."\n".'<a href="#" id="ex5hide">view</a> (hide all)'."\n".'<a href="#" id="ex5multi">view</a> (show+hide some)'); ?>
 
@@ -476,7 +481,7 @@ It is now time to show a real-world use for jqModal -- overriding the standard <
 <div class="example">
 7. <em>External Site (iframe) usage</em> (with added bling-in-the-box)
 <br />
-Alexandre Plennevaux has posted a <a href="http://www.pixeline.be/blog/2008/javascript-loading-external-urls-in-jqmodal-jquery-plugin/">tutorial</a> on effectively using jqModal to load external sites into a popup dialog. His method updates an iframe inside a dialog with the HREF attribute of the triggering element. It is an <strong>excellent</strong> example of real-world jqModal usage. As an added bonus; the bling-factor is furthered by showing off some fancy animated transistions! Be sure to check out his <a href="http://www.pixeline.be/experiments/ThickboxToJqModal/">demonstration</a>. 
+Alexandre Plennevaux has posted a <a href="http://www.pixeline.be/blog/2008/javascript-loading-external-urls-in-jqmodal-jquery-plugin/">tutorial</a> on effectively using jqModal to load external sites into a popup dialog. His method updates an iframe inside a dialog with the HREF attribute of the triggering element. It is an <strong>excellent</strong> example of real-world jqModal usage. As an added bonus; the bling-factor is furthered by showing off some fancy animated transistions! Be sure to check out his <a href="http://www.pixeline.be/experiments/ThickboxToJqModal/">demonstration</a>.
 
 <br clear="both" />
 
@@ -520,7 +525,7 @@ Alexandre Plennevaux has posted a <a href="http://www.pixeline.be/blog/2008/java
 <dd>
 <ul>
 <li>
-  jqModal is an open project. <strong>Community embrace is its lifeblood</strong>. Please feel free to help answer questions on <a href="http://stackoverflow.com/questions/tagged/jqmodal">stackoverflow</a> or submit your ideas to our <a href="https://github.com/briceburg/jqModal/issues">issue tracker</a>. 
+  jqModal is an open project. <strong>Community embrace is its lifeblood</strong>. Please feel free to help answer questions on <a href="http://stackoverflow.com/questions/tagged/jqmodal">stackoverflow</a> or submit your ideas to our <a href="https://github.com/briceburg/jqModal/issues">issue tracker</a>.
   <br /><br />
   <em>Your involvement is appreciated!</em>
 </li>

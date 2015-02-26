@@ -1,12 +1,12 @@
 /*
  * jqModal - Minimalist Modaling with jQuery
  *
- * Copyright (c) 2007-2014 Brice Burgess @IceburgBrice
+ * Copyright (c) 2007-2015 Brice Burgess @IceburgBrice
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  * 
- * $Version: 1.1.0 (2014.07.03 +r21)
+ * $Version: 1.2.0 (2015.02.26 +r22)
  * Requires: jQuery 1.2.3+
  */
 
@@ -108,7 +108,7 @@
 			v = $('<div></div>').addClass(o.overlayClass).css({height:'100%',width:'100%',position:'fixed',left:0,top:0,'z-index':z-1,opacity:o.overlay/100}),
 		
 			// maintain legacy "hash" construct
-			h = {w: e, c: o, o: v, t: t};
+			h = {w: e, c: o, o: v, t: t};	
 			
 		e.css('z-index',z);
 
@@ -152,10 +152,10 @@
 		//  return false to stop opening modal. 
 		
 		// hash object;
-	    //  w: (jQuery object) The modal element
-	    //  c: (object) The modal's options object 
-	    //  o: (jQuery object) The overlay element
-	    //  t: (DOM object) The triggering element
+		//  w: (jQuery object) The modal element
+		//  c: (object) The modal's options object 
+		//  o: (jQuery object) The overlay element
+		//  t: (DOM object) The triggering element
 		
 		// display the overlay (prepend to body) if not disabled
 		if(hash.c.overlay > 0)
@@ -165,7 +165,7 @@
 		hash.w.show();
 		
 		// call focusFunc (attempts to focus on first input in modal)
-		$.jqm.focusFunc(hash.w);
+		$.jqm.focusFunc(hash.w,null);
 		
 		return true;
 		
@@ -175,10 +175,10 @@
 		//  return false to stop closing modal. 
 		
 		// hash object;
-	    //  w: (jQuery object) The modal element
-	    //  c: (object) The modal's options object 
-	    //  o: (jQuery object) The overlay element
-	    //  t: (DOM object) The triggering element
+		//  w: (jQuery object) The modal element
+		//  c: (object) The modal's options object 
+		//  o: (jQuery object) The overlay element
+		//  t: (DOM object) The triggering element
 		
 		// hide modal and if overlay, remove overlay.
 		hash.w.hide() && hash.o && hash.o.remove();
@@ -219,9 +219,10 @@
 		// open: executes the onOpen callback + performs common tasks if successful
 
 		// transform legacy hash into new var shortcuts 
-		 var e = h.w,
-		 	v = h.o,
-		 	o = h.c;	
+		var e = h.w,
+			v = h.o,
+			o = h.c;
+		
 
 		// execute onShow callback
 		if(o.onShow(h) !== false){
@@ -235,9 +236,9 @@
 			// 
 			// else, close dialog when overlay is clicked
 			if(o.modal){ !A[0]&&F('bind'); A.push(e); }
-            else e.jqmAddClose(v);
+			else e.jqmAddClose(v);
 			
-			//  Attach closing events to elements inside the modal that match the closingClass
+			//  Attach closing events to elements inside the modal matching closingClass
 			o.closeClass&&e.jqmAddClose($('.' + o.closeClass,e));
 			
 			// IF toTop is true and overlay exists;
@@ -247,6 +248,12 @@
 			
 			// remember overlay (for closing function)
 			e.data('jqmv',v);
+
+			// close modal if the esc key is pressed and closeOnEsc is set to true
+			e.unbind("keydown",$.jqm.closeOnEscFunc);
+			if(o.closeOnEsc) {
+				e.attr("tabindex", 0).bind("keydown",$.jqm.closeOnEscFunc).focus();
+			}
 		}
 		
 		
@@ -255,8 +262,8 @@
 
 		// transform legacy hash into new var shortcuts 
 		 var e = h.w,
-		 	v = h.o,
-		 	o = h.c;
+			v = h.o,
+			o = h.c;
 
 		// execute onShow callback
 		if(o.onHide(h) !== false){
@@ -284,13 +291,13 @@
 		// X: The Focus Examination Function (for modal: true dialogs)
 
 		var modal = $(e.target).data('jqm') || $(e.target).parents('.jqm-init:first').data('jqm'),
-			activeModal = A[A.length-1].data('jqm');
+		  activeModal = A[A.length-1];
 		
 		// allow bubbling if event target is within active modal dialog
 		if(modal && modal.ID == activeModal.ID) return true; 
 
 		// else, trigger focusFunc (focus on first input element and halt bubbling)
-		return $.jqm.focusFunc(activeModal);
+		return $.jqm.focusFunc(activeModal,e);
 	}, 
 	
 	I = 0,   // modal ID increment (for nested modals) 
@@ -320,6 +327,7 @@
 			overlay: 50,
 			overlayClass: 'jqmOverlay',
 			closeClass: 'jqmClose',
+			closeOnEsc: false,
 			trigger: '.jqModal',
 			ajax: false,
 			target: false,
@@ -331,9 +339,28 @@
 			onLoad: false
 		},
 		
-		// focusFunc is fired when a modal is shown, or when interaction occurs outside
-		// a modal enabled dialog. Passed the modal element. 
-		focusFunc: function(e) { $(':input:visible:first',e).focus(); return false; }
+		// focusFunc is fired:
+		//   a) when a modal:true dialog is shown, 
+		//   b) when an event occurs outside an active modal:true dialog
+		// It is passed the active modal:true dialog as well as event 
+		focusFunc: function(activeModal, event) { 
+		  
+		  // if the event occurs outside the activeModal, focus on first element
+		  if(event) { 
+		    $(':input:visible:first',activeModal).focus();
+		  } 
+		  
+		  // lock interactions to the activeModal
+		  return false; 
+		},
+		  
+		// closeOnEscFunc is attached to modals where closeOnEsc param true.
+		closeOnEscFunc: function(event){
+			if (event.keyCode == 27) {
+				$(this).jqmHide();
+				return false;
+			}
+		}
 	};
 	
 })( jQuery );
