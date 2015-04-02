@@ -6,7 +6,7 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  * 
- * $Version: 1.2.0 (2015.02.26 +r22)
+ * $Version: 1.2.0 (2015.04.01 +r23)
  * Requires: jQuery 1.2.3+
  */
 
@@ -29,7 +29,7 @@
 				o = $.extend(jqm,options);
 			
 			// add/extend options to modal and mark as initialized
-			e.data('jqm',o).addClass('jqm-init');
+			e.data('jqm',o).addClass('jqm-init')[0]._jqmID = o.ID;
 			
 			// ... Attach events to trigger showing of this modal
 			o.trigger && e.jqmAddTrigger(o.trigger);
@@ -165,7 +165,7 @@
 		hash.w.show();
 		
 		// call focusFunc (attempts to focus on first input in modal)
-		$.jqm.focusFunc(hash.w,null);
+		$.jqm.focusFunc(hash.w,true);
 		
 		return true;
 		
@@ -231,11 +231,10 @@
 			
 			// if modal dialog 
 			//
-			// Bind the Keep Focus Function [F] if no other Modals are open (!A[0]) +
-			// Add this modal to the opened modals stack (A) for nested modal support
+			// Bind the Keep Focus Function [F] if no other Modals are open (!ActiveModals[0]) +
 			// 
 			// else, close dialog when overlay is clicked
-			if(o.modal){ !A[0]&&F('bind'); A.push(e); }
+			if(o.modal){ !ActiveModals[0]&&F('bind'); ActiveModals.push(e[0]); }
 			else e.jqmAddClose(v);
 			
 			//  Attach closing events to elements inside the modal matching closingClass
@@ -272,7 +271,7 @@
 			
 			 // If modal, remove from modal stack.
 			 // If no modals in modal stack, unbind the Keep Focus Function
-			 if(o.modal){A.pop();!A[0]&&F('unbind');}
+			 if(o.modal){ActiveModals.pop();!ActiveModals[0]&&F('unbind');}
 			 
 			 // IF toTop was passed and an overlay exists;
 			 //  Move modal back to its "remembered" position.
@@ -290,18 +289,16 @@
 	}, X = function(e){
 		// X: The Focus Examination Function (for modal: true dialogs)
 
-		var modal = $(e.target).data('jqm') || $(e.target).parents('.jqm-init:first').data('jqm'),
-		  activeModal = A[A.length-1];
+		var targetModal = $(e.target).data('jqm') || $(e.target).parents('.jqm-init:first').data('jqm');
+		var activeModal = ActiveModals[ActiveModals.length-1];
 		
 		// allow bubbling if event target is within active modal dialog
-		if(modal && modal.ID == activeModal.ID) return true; 
-
-		// else, trigger focusFunc (focus on first input element and halt bubbling)
-		return $.jqm.focusFunc(activeModal,e);
+		return (targetModal && targetModal.ID == activeModal._jqmID) ? 
+		  true : $.jqm.focusFunc(activeModal,e);
 	}, 
 	
 	I = 0,   // modal ID increment (for nested modals) 
-	A = [];  // array of active modals (used to lock interactivity to appropriate modal)
+	ActiveModals = [];  // array of active modals (used to lock interactivity to appropriate modal)
 	
 	
 	// $.jqm, overridable defaults

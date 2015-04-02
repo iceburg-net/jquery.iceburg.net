@@ -77,7 +77,7 @@ If you like jqModal, please consider a dontation to support its development:
 
 <div class="wwwwh">When?</div>
 <p>
-Current Version: 1.2.0 <em>2015.02.26 +r22</em>
+Current Version: 1.2.1 <em>2015.04.01 +r23</em>
 <br /> Copyright &copy; 2007-<?php echo date('Y'); ?> Brice Burgess - released under both the <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a> and <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> licenses.
 </p>
 
