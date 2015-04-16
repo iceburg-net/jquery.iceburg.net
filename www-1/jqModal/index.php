@@ -282,17 +282,17 @@ Options allow tailoring the behavior of modals.
 </dd>
 
 <dt>ajax</dt>
-<dd>Modal contents will be loaded remotely via ajax if passed. You can pass the URL
+<dd>Remotely loads the modal contents. You can pass the URL
 (e.g. $.jqm({ajax:'remote/dialog.html'}) or extract it from an attribute of the triggering element.
 For instance, $(.jqm({ajax:'@href'}) would grab contents from `foo/bar.html` if the triggering element was &lt;a href="foo/bar.html"&gt;Open Modal&lt;/a&gt;.
-If a more complicated routine is desired, use the onShow() callback.
+If a more complicated routine is desired, use the onShow() and/or onLoad() callback. <em>As of jqModal 1.3, ajax modals are immediately shown.</em>
  <p class="pv">(string|false) - default: false</p>
 </dd>
 
 <dt>target</dt>
 <dd>
  <p class="pv">NOTE: target is applicable only if the ajax parameter is passed.</p>
- Child element(s) of the modal to load ajax response into. If false, modal contents will be overwritten by ajax response. Useful for retaining modal design. Target can be;
+ Child element(s) of the modal whose contents are replaced with the ajax response. If false, the entire modal contents will be replaced. Target can be;
  <ul>
       <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
       <li>(object) A DOM element (e.g. $.jqm({target: $('#dialog div.contents')[0]})</li>
@@ -303,8 +303,8 @@ If a more complicated routine is desired, use the onShow() callback.
 
 <dt>ajaxText</dt>
 <p class="pv">NOTE: ajaxText is applicable only if the ajax parameter is passed.</p>
-<dd>Text shown while waiting for ajax return. Replaces HTML content of `target` element. May include HTML (such as an loading image). E.g. $.jqm({ajaxText: '&lt;marquee style="width: 1.5em;"&gt;.. ... .&lt;/marquee&gt;'});</p>
- <p class="pv">(string) - default: ''</p>
+<dd>Optionally replace the contents of the ajax target with the supplied string when ajax modals are triggered. May include HTML (such as an loading image). Will be replaced with server response when received. E.g. $.jqm({ajaxText: '&lt;marquee style="width: 1.5em;"&gt;.. ... .&lt;/marquee&gt;'});</p>
+ <p class="pv">(string|false) - default: false</p>
 </dd>
 
 <dt>modal</dt>
