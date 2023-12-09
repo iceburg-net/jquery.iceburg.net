@@ -1,0 +1,1320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>jqRevolve :: Smooth-action Carousel Scrolling</title>
+<meta name="author" content="Brice Burgess" />
+<meta name="description" content="Carousel Scrolling for jQuery. Pressure sensitive content scroller for JavaScript." />
+<meta name="keywords" content="scroll component, carousel, jquery, javascript" />
+<link type="text/css" rel="stylesheet" media="all" href="../common/css/common.css" />
+<link type="text/css" rel="stylesheet" media="all" href="../common/css/example.css" />
+
+<!-- jqRevolve Dependencies -->
+<script type="text/javascript" src="../common/js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="release/jquery.revolve-r2.js"></script>
+
+
+<script type="text/javascript">$().ready(function(){$('#nav').css('opacity',0.68);});</script>
+</head>
+<body>
+
+<div id="nav">
+<ul>
+<li><a href="#who">About</a></li>
+<li><a href="#where">Download</a></li>
+<li><a href="#how">Usage</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#etc">Changes and Issues</a></li>
+</div>
+
+<div class="box">
+
+<a class="anchor" name="who"></a>
+<div class="wwwwh">Who?</div>
+
+<div id="heading">
+jqRevolve <p>Smooth-action Carousel Scrolling with jQuery</p>
+</div>
+
+<br />
+
+<div class="wwwwh">What?</div>
+<p>
+jqRevolve is a plugin for <a href="http://jquery.com/">jQuery</a> to help you add scrolling content areas to your webpage(s).
+</p>
+
+<p><em>Features</em>;</p>
+<ul>
+<li>Horizontal scrolling of arbitrary HTML content (images, iframes, markup, you name it).</li>
+<li>Pressure based scrolling</li>
+<li>Easy to use and customize</li>
+<li>Automatic clip region sizing</li>
+<li>Automatic centering of content</li>
+</ul>
+
+<div class="wwwwh">Why?</div>
+<p>
+I wanted a small, easy to understand and modify "carousel" scrolling compontent. There are plenty of <a href="http://www.gmarwaha.com/jquery/jcarousellite/">other</a> <a href="http://sorgalla.com/jcarousel/">carousel-like</a> <a href="http://www.5bosses.com/examples/agile_carousel/jqueryui_example/carousel.html">plugins</a> <a href="http://www.enova-tech.net/lab/jMyCarousel/">out</a> <a href="http://www.dynamicdrive.com/dynamicindex4/stepcarousel.htm">there</a>, however none had the basic auto-sizing and pressure-based scrolling features I needed.
+</p>
+<p>
+If you like my plugins, please consider a dontation to support their development:
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+</form>
+</p>
+
+<a class="anchor" name="where"></a>
+<div class="wwwwh">When?</div>
+<p>
+Current Version: <em>2008.11.13 +r2</em>
+<br /> &copy; 2008 Brice Burgess - released under both the <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a> and <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> licenses.
+</p>
+
+<div class="wwwwh">Where?</div>
+<p>
+Download the <em><a href="jquery.revolve.js">Development Plugin</a></em> (jquery.revolve.js - 5.42k)
+<br />
+Download the <em><a href="jquery.revolve.packed.js">Production Plugin</a></em> (jquery.revolve.packed.js - 2.29k)
+<br /><br />
+&nbsp;&nbsp;** <em>requires</em> [jQuery >= <strong>1.2.0</strong>+]
+</p>
+
+<p>
+If you need <em>support</em> or have <em>comments</em>, please post to the <a href="http://www.nabble.com/JQuery-f15494.html">jQuery mailing list</a>.
+</p>
+
+<a class="anchor" name="how"></a>
+<div class="wwwwh">How?</div>
+
+<p><em>Usage</em></p>
+To add a revolver to your website you must ...
+<dl>
+
+<dt>1. Add Revolver Markup</dt>
+<dd>
+	Revolvers/Carousels traditionally consist of:
+	<br />
+	<ol>
+		<li>A fixed width (or height) container known as a clip region. This is your "Revolver".</li>
+		<li>Forward and Backward buttons that scroll content when clicked</li>
+		<li>A content container within the clip region. This is typically wider (or taller) than the clip region.</li>
+	</ol>
+	<p>
+	See the 'HTML' tab of the below examples for reference.
+	</p>
+	NOTE: The clip region should have relative, fixed, or absolute positioning and MUST have its <strong>overflow</strong> style set to <em>hidden</em>. The content container MUST have absolute posistioning. jqRevolve will <strong>automatically enforce</strong> these <strong>CSS rules</strong>.
+</dd>
+
+<dt>2. Initialize Revolver(s)</dt>
+<dd>
+	Call the $.jqRevolver() method on all revolver(s) added to your page. This will enable the component or alert you of errors encountered. This method will automatically enforce CSS rules [above note].
+	<p>
+	See the 'Javascript' tab of the below examples for reference.
+	</p>
+</dd>
+
+<dt>3. Re-Initialize the Revolver whenever content changes</dt>
+<dd>
+	If a Revolver's content changes, you should refresh using the $.jqrRefresh() method. This will re-calculate the scrolling bounds, as well as
+	best size the clip region (if autoSize is enabled).
+</dd>
+</dl>
+
+<p><em>Methods</em></p>
+<dl>
+<dt>jqRevolve</dt>
+<dd>
+ Initialize element(s) as Revolver components. Accepts a parameters object.
+
+ <p class="code">
+ $('#revolver').jqRevolve(); <br />
+ $('.revolvers').jqRevolve({autoSize:false, content:'div.carouselContent'});
+ </p>
+</dd>
+
+<dt>jqrRefresh</dt>
+<dd>
+ 	Called when a revolver's content changes. Recalculates scrolling bounds, and best sizes the clip region (if autoSize is enabled).
+
+ <p class="code">
+ $('#revolver').jqrRefresh(); <br />
+ $('.revolvers').jqrRefresh();
+ </p>
+
+</dd>
+
+<p><em>Parameters</em></p>
+
+Parameters allow tailoring the behavior of any jqRevolve to your needs. They are passed on-the-fly as an object to the $.jqRevolve function.
+
+<dl>
+<dt>autoSize</dt>
+<dd>Resize the clip region to best fit its content. Height is adjusted for horizontal revolvers, width for vertical.
+ <p class="pv">(boolean) - default: true</p>
+</dd>
+
+<dt>autoCenter</dt>
+<dd>Automatically center content in the clip region *IF* it fits within the region.
+ <p class="pv">(boolean) - default: true</p>
+</dd>
+
+<dt>startPos</dt>
+<dd>
+ Start position of content in percent (0-100). 100 = all the way forward, 0 = all the way backward.
+ <p class="pv">(integer) - default: 0</p>
+</dd>
+
+<dt>maxSpeed</dt>
+<dd>
+  Maximum Scroll Speed (pixels scrolled per animation sequence)
+ <p class="pv">(integer) - default: 230</p>
+</dd>
+
+<dt>next</dt>
+<dd>
+ Assigns passed element(s) as next button(s). Clicking scrolls the content forward.
+  Accepts;
+  <ul>
+      <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
+      <li>(object) A jQuery Collection</li>
+      <li>(object) A DOM element</li>
+  </ul>
+
+ <p class="pv">(mixed) - default: '.revolve-next'</p>
+</dd>
+
+<dt>prev</dt>
+<dd>
+ Assigns passed element(s) as previous button(s). Clicking scrolls the content backward.
+  Accepts;
+  <ul>
+      <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
+      <li>(object) A jQuery Collection</li>
+      <li>(object) A DOM element</li>
+  </ul>
+
+ <p class="pv">(mixed) - default: '.revolve-prev'</p>
+</dd>
+
+<dt>content</dt>
+<dd>
+  Assigns passed element(s) as content container(s).
+  Accepts;
+  <ul>
+      <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
+      <li>(object) A jQuery Collection</li>
+      <li>(object) A DOM element</li>
+  </ul>
+
+ <p class="pv">(mixed) - default: '.revolve-content'</p>
+</dd>
+
+</dl>
+
+<a class="anchor" name="examples"></a>
+<p><em>Examples</em></p>
+
+<div class="example">
+1. <em>Defaults</em> - Basic CSS Styling
+</div>
+<script type="text/javascript">
+$().ready(function(){
+	$('#example1').jqRevolve();
+});
+
+</script>
+<style>
+#example1 {
+		/* MUST be relative or absolute! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	position: relative; 
+	
+		/* MUST be hidden! */
+		/* Plugin will automatically set if not. */	
+		/* See example 2 CSS */
+	overflow: hidden;
+	
+	width: 360px;
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+
+#example1 .revolve-content {
+		/* MUST be relative or absolute! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	position: absolute;
+	z-index: 5;
+}
+
+#example1 .revolve-next, #example1 .revolve-prev {
+	position: absolute;
+	background-color: red;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example1 .revolve-next { right: 0; }
+</style>
+
+<div id="example1">
+	<div class="revolve-next"></div>
+	<div class="revolve-prev"></div>
+	<div class="revolve-content">
+		jqRevolve -
+		CLICK
+		THE
+		RED
+		BLOCKS
+		TO
+		SCROLL 
+		THROUGH
+		THIS
+		CONTENT!
+		
+		AAAA	BBBB
+		CCCC	DDDD
+		EEEE	FFFF
+		GGGG	HHHH
+		IIII	JJJJ
+		KKKK	LLLL
+		MMMM	NNNN
+		OOOO	PPPP
+		QQQQ	RRRR
+		SSSS	TTTT
+		UUUU	VVVV
+		WWWW	XXXX
+		YYYY	ZZZZ
+		
+		Viola! Fin.
+	</div>
+</div>
+
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function(){
+  $('#example1').jqRevolve();
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+#example1 {
+    /* MUST be relative or absolute! */
+    /* Plugin will automatically set if not. */
+    /* See example 2 CSS */
+  position: relative; 
+  
+    /* MUST be hidden! */
+    /* Plugin will automatically set if not. */  
+    /* See example 2 CSS */
+  overflow: hidden;
+  
+  width: 360px;
+  margin: 10px 24px;
+  border: 1px solid black;
+}
+
+
+#example1 .revolve-content {
+    /* MUST be relative or absolute! */
+    /* Plugin will automatically set if not. */
+    /* See example 2 CSS */
+  position: absolute;
+  z-index: 5;
+}
+
+#example1 .revolve-next, #example1 .revolve-prev {
+  position: absolute;
+  background-color: red;
+  width: 25px;
+  height: 100%;
+  z-index: 10;
+}
+
+#example1 .revolve-next { right: 0; }</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;div id=&quot;example1&quot;&gt;
+  &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-content&quot;&gt;
+    jqRevolve -
+    CLICK
+    THE
+    RED
+    BLOCKS
+    TO
+    SCROLL 
+    THROUGH
+    THIS
+    CONTENT!
+    
+    AAAA  BBBB
+    CCCC  DDDD
+    EEEE  FFFF
+    GGGG  HHHH
+    IIII  JJJJ
+    KKKK  LLLL
+    MMMM  NNNN
+    OOOO  PPPP
+    QQQQ  RRRR
+    SSSS  TTTT
+    UUUU  VVVV
+    WWWW  XXXX
+    YYYY  ZZZZ
+    
+    Viola! Fin.
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+
+<div class="example">
+2. <em>startPos</em> - Specifying a start position
+</div>
+<script type="text/javascript">
+$().ready(function(){
+	// Start mid-way (50%) through content
+	$('#example2').jqRevolve({startPos: 50});
+});
+
+</script>
+<style>
+#example2 {
+	width: 360px;
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+#example2 .revolve-next, #example2 .revolve-prev {
+	position: absolute;
+	background-color: red;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example2 .revolve-next { right: 0; }
+</style>
+
+<div id="example2">
+	<div class="revolve-next"></div>
+	<div class="revolve-prev"></div>
+	<div class="revolve-content">
+		jqRevolve -
+		CLICK
+		THE
+		RED
+		BLOCKS
+		TO
+		SCROLL 
+		THROUGH
+		THIS
+		CONTENT!
+		
+		AAAA	BBBB
+		CCCC	DDDD
+		EEEE	FFFF
+		GGGG	HHHH
+		IIII	JJJJ
+		KKKK	LLLL
+		MMMM	NNNN
+		OOOO	PPPP
+		QQQQ	RRRR
+		SSSS	TTTT
+		UUUU	VVVV
+		WWWW	XXXX
+		YYYY	ZZZZ
+		
+		Viola! Fin.
+	</div>
+</div>
+
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function(){
+  // Start mid-way (50%) through content
+  $('#example2').jqRevolve({startPos: 50});
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+#example2 {
+  width: 360px;
+  margin: 10px 24px;
+  border: 1px solid black;
+}
+
+#example2 .revolve-next, #example2 .revolve-prev {
+  position: absolute;
+  background-color: red;
+  width: 25px;
+  height: 100%;
+  z-index: 10;
+}
+
+#example2 .revolve-next { right: 0; }</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;div id=&quot;example2&quot;&gt;
+  &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-content&quot;&gt;
+    jqRevolve -
+    CLICK
+    THE
+    RED
+    BLOCKS
+    TO
+    SCROLL 
+    THROUGH
+    THIS
+    CONTENT!
+    
+    AAAA  BBBB
+    CCCC  DDDD
+    EEEE  FFFF
+    GGGG  HHHH
+    IIII  JJJJ
+    KKKK  LLLL
+    MMMM  NNNN
+    OOOO  PPPP
+    QQQQ  RRRR
+    SSSS  TTTT
+    UUUU  VVVV
+    WWWW  XXXX
+    YYYY  ZZZZ
+    
+    Viola! Fin.
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+
+<div class="example">
+3. <em>autoCenter</em> - Center content if it fits within the clip region
+</div>
+<script type="text/javascript">
+$().ready(function(){
+	$('#example3 div.doNotCenter').jqRevolve({autoCenter: false});
+	$('#example3 div.doCenter').jqRevolve({autoCenter: true}); // default
+});
+
+</script>
+<style>
+#example3 div.carousel {
+		/* MUST be relative or absolute! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	position: relative; 
+	
+		/* MUST be hidden! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	overflow: hidden;
+	
+	width: 520px;
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+#example3 .revolve-content {
+		/* MUST be relative or absolute! */
+		/* Plugin will automatically set if not. */
+		/* See example 2 CSS */
+	position: absolute;
+	z-index: 5;
+}
+
+#example3 .revolve-next, #example3 .revolve-prev {
+	position: absolute;
+	background-color: blue;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example3 .revolve-next { right: 0; }
+</style>
+
+<div id="example3">
+	<div class="carousel doNotCenter">
+		<div class="revolve-next"></div>
+		<div class="revolve-prev"></div>
+		<div class="revolve-content">
+			<img src="drink.jpg" />
+		</div>
+	</div>
+	
+	<div class="carousel doCenter">
+		<div class="revolve-next"></div>
+		<div class="revolve-prev"></div>
+		<div class="revolve-content">
+			<img src="drink.jpg" />
+		</div>
+	</div>
+	
+</div>
+
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function(){
+  $('#example3 div.doNotCenter').jqRevolve({autoCenter: false});
+  $('#example3 div.doCenter').jqRevolve({autoCenter: true}); // default
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+#example3 div.carousel {
+    /* MUST be relative or absolute! */
+    /* Plugin will automatically set if not. */
+    /* See example 2 CSS */
+  position: relative; 
+  
+    /* MUST be hidden! */
+    /* Plugin will automatically set if not. */
+    /* See example 2 CSS */
+  overflow: hidden;
+  
+  width: 520px;
+  margin: 10px 24px;
+  border: 1px solid black;
+}
+
+#example3 .revolve-content {
+    /* MUST be relative or absolute! */
+    /* Plugin will automatically set if not. */
+    /* See example 2 CSS */
+  position: absolute;
+  z-index: 5;
+}
+
+#example3 .revolve-next, #example3 .revolve-prev {
+  position: absolute;
+  background-color: blue;
+  width: 25px;
+  height: 100%;
+  z-index: 10;
+}
+
+#example3 .revolve-next { right: 0; }</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;div id=&quot;example3&quot;&gt;
+  &lt;div class=&quot;carousel doNotCenter&quot;&gt;
+    &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-content&quot;&gt;
+      &lt;img src=&quot;drink.jpg&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;carousel doCenter&quot;&gt;
+    &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-content&quot;&gt;
+      &lt;img src=&quot;drink.jpg&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+
+<div class="example">
+4. <em>autoSize</em> - Set appropriate height of clip region based on content
+</div>
+<script type="text/javascript">
+$().ready(function(){
+	$('#example4 div.doNotAutoSize').jqRevolve({autoSize: false});
+	$('#example4 div.doAutoSize').jqRevolve({autoSize: true}); // default
+});
+
+</script>
+<style>
+#example4 div.carousel {
+	width: 520px;
+	
+	margin: 10px 24px;
+	border: 1px solid black;
+	
+	height: 20px; /* FIXED HEIGHT - LOOK! */
+}
+
+#example4 .revolve-next, #example4 .revolve-prev {
+	position: absolute;
+	background-color: blue;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example4 .revolve-next { right: 0; }
+</style>
+
+<div id="example4">
+	<div class="carousel doNotAutoSize">
+		<div class="revolve-next"></div>
+		<div class="revolve-prev"></div>
+		<div class="revolve-content">
+			<img src="drink.jpg" />
+		</div>
+	</div>
+	
+	<div class="carousel doAutoSize">
+		<div class="revolve-next"></div>
+		<div class="revolve-prev"></div>
+		<div class="revolve-content">
+			<img src="drink.jpg" />
+		</div>
+	</div>
+	
+</div>
+
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function(){
+  $('#example4 div.doNotAutoSize').jqRevolve({autoSize: false});
+  $('#example4 div.doAutoSize').jqRevolve({autoSize: true}); // default
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+#example4 div.carousel {
+  width: 520px;
+  
+  margin: 10px 24px;
+  border: 1px solid black;
+  
+  height: 20px; /* FIXED HEIGHT - LOOK! */
+}
+
+#example4 .revolve-next, #example4 .revolve-prev {
+  position: absolute;
+  background-color: blue;
+  width: 25px;
+  height: 100%;
+  z-index: 10;
+}
+
+#example4 .revolve-next { right: 0; }</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;div id=&quot;example4&quot;&gt;
+  &lt;div class=&quot;carousel doNotAutoSize&quot;&gt;
+    &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-content&quot;&gt;
+      &lt;img src=&quot;drink.jpg&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;carousel doAutoSize&quot;&gt;
+    &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;revolve-content&quot;&gt;
+      &lt;img src=&quot;drink.jpg&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+
+<div class="example">
+5. <em>maxSpeed</em> - Set Maximum Speed (pixels scrolled per animation sequence)
+</div>
+<script type="text/javascript">
+$().ready(function(){
+	$('#example5').jqRevolve({maxSpeed: 25}); // slow
+});
+
+</script>
+<style>
+#example5 {
+	width: 520px;
+	
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+#example5 .revolve-content img { vertical-align: middle; }
+
+#example5 .revolve-next, #example5 .revolve-prev {
+	position: absolute;
+	background-color: green;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example5 .revolve-next { right: 0; }
+</style>
+
+<div id="example5">
+	<div class="revolve-next"></div>
+	<div class="revolve-prev"></div>
+	<div class="revolve-content">
+		&gt;&lt;(({Â°&gt;
+		
+		&gt;&lt;(({Â°&gt;
+		
+		Start...
+		
+		<img src="drink.jpg" />
+		
+		&gt;&lt;(({Â°&gt;
+		
+		<img src="drink.jpg" />
+		
+		
+		Fin.
+		
+		&gt;&lt;(({Â°&gt;
+		
+		&gt;&lt;(({Â°&gt;
+	</div>
+</div>
+
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function(){
+  $('#example5').jqRevolve({maxSpeed: 25}); // slow
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+#example5 {
+  width: 520px;
+  
+  margin: 10px 24px;
+  border: 1px solid black;
+}
+
+#example5 .revolve-content img { vertical-align: middle; }
+
+#example5 .revolve-next, #example5 .revolve-prev {
+  position: absolute;
+  background-color: green;
+  width: 25px;
+  height: 100%;
+  z-index: 10;
+}
+
+#example5 .revolve-next { right: 0; }</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;div id=&quot;example5&quot;&gt;
+  &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-content&quot;&gt;
+    &amp;gt;&amp;lt;(({Â°&amp;gt;
+    
+    &amp;gt;&amp;lt;(({Â°&amp;gt;
+    
+    Start...
+    
+    &lt;img src=&quot;drink.jpg&quot; /&gt;
+    
+    &amp;gt;&amp;lt;(({Â°&amp;gt;
+    
+    &lt;img src=&quot;drink.jpg&quot; /&gt;
+    
+    
+    Fin.
+    
+    &amp;gt;&amp;lt;(({Â°&amp;gt;
+    
+    &amp;gt;&amp;lt;(({Â°&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+
+<div class="example">
+6. <em>jqrRefresh method</em> - Update the content area of a jqRevolver (will resize the clip region as necessary. NOTE: Uses the <a href="http://flickr.com">Flickr.com</a> API)
+</div>
+<script type="text/javascript">
+$().ready(function(){
+	$('#example6').jqRevolve({autoSize: true});
+	
+	$('#updateExample6').click(function(){
+		
+		// Grab random images from Flickr.com
+		$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags="+getTag()+"&format=json&jsoncallback=?",
+        function(data){
+          
+		  // create new content placeholder
+		  var newContent = '';
+		  
+		  $.each(data.items, function(i,item){
+			newContent += '<img src="'+item.media.m+'" /> &nbsp;'
+            if ( i == 5 ) return false;
+          });
+		  
+		  // update example 6 carousel with newContent
+		  $('#example6').jqrRefresh(newContent);
+		  
+        });
+
+	});
+	
+	// random tags for Flickr Service
+	var tags = ['kitten','goldfish','puppy'],i=0;
+	function getTag(){
+		if(i == 3)
+			i = 0;
+		return tags[i++];
+	}
+});
+
+
+
+
+
+
+
+</script>
+<style>
+#example6 {
+	width: 600px;
+	
+	margin: 10px 24px;
+	border: 1px solid black;
+}
+
+
+#example6 .revolve-next, #example6 .revolve-prev {
+	position: absolute;
+	background-color: yellow;
+	width: 25px;
+	height: 100%;
+	z-index: 10;
+}
+
+#example6 .revolve-next { right: 0; }
+
+#updateExample6 {
+	margin: 10px 60px;
+}
+
+</style>
+
+<div id="example6">
+	<div class="revolve-next"></div>
+	<div class="revolve-prev"></div>
+	<div class="revolve-content">
+		Populate Me! Click "Update Content"...
+	</div>
+	
+</div>
+
+<button id="updateExample6">Update Content</button>
+
+
+
+
+
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function(){
+  $('#example6').jqRevolve({autoSize: true});
+  
+  $('#updateExample6').click(function(){
+    
+    // Grab random images from Flickr.com
+    $.getJSON(&quot;http://api.flickr.com/services/feeds/photos_public.gne?tags=&quot;+getTag()+&quot;&amp;format=json&amp;jsoncallback=?&quot;,
+        function(data){
+          
+      // create new content placeholder
+      var newContent = '';
+      
+      $.each(data.items, function(i,item){
+      newContent += '&lt;img src=&quot;'+item.media.m+'&quot; /&gt; &amp;nbsp;'
+            if ( i == 5 ) return false;
+          });
+      
+      // update example 6 carousel with newContent
+      $('#example6').jqrRefresh(newContent);
+      
+        });
+
+  });
+  
+  // random tags for Flickr Service
+  var tags = ['kitten','goldfish','puppy'],i=0;
+  function getTag(){
+    if(i == 3)
+      i = 0;
+    return tags[i++];
+  }
+});
+
+
+
+
+
+
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+#example6 {
+  width: 600px;
+  
+  margin: 10px 24px;
+  border: 1px solid black;
+}
+
+
+#example6 .revolve-next, #example6 .revolve-prev {
+  position: absolute;
+  background-color: yellow;
+  width: 25px;
+  height: 100%;
+  z-index: 10;
+}
+
+#example6 .revolve-next { right: 0; }
+
+#updateExample6 {
+  margin: 10px 60px;
+}
+</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;div id=&quot;example6&quot;&gt;
+  &lt;div class=&quot;revolve-next&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-prev&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;revolve-content&quot;&gt;
+    Populate Me! Click &quot;Update Content&quot;...
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;button id=&quot;updateExample6&quot;&gt;Update Content&lt;/button&gt;
+
+
+
+
+</pre>
+</div>
+</div>
+
+<div class="example">
+7. <em>Specifing components</em> - Use jQuery <a href="http://docs.jquery.com/Selectors">selectors</a> to specify next, previous, and content element(s).
+</div>
+<script type="text/javascript">
+$().ready(function(){
+	
+	// initialize revolver
+	$('#example7 div.revolve').jqRevolve({
+		next: $('#example7 div.next-button')[0],
+		prev: $('#example7 div.prev-button')[0]
+	});
+	
+	// fill revolver content with random Flickr.com imagery
+	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags=lemur&format=json&jsoncallback=?",
+        function(data){
+		  $.each(data.items, function(i,item){
+			 $("<img/>").attr("src", item.media.m).appendTo("#example7 div.revolve-content");
+            if ( i == 7 ) return false;
+          });
+		  
+		  // refresh example 7's content [sizes to native height]
+		  $('#example7 div.revolve').jqrRefresh();
+        }
+	);
+});
+
+	
+	
+</script>
+<style>
+
+
+/**** CLIP REGION  *****/
+#example7 div.revolve { 
+	position: relative;	/* must be relative or absolute */
+	overflow: hidden;	/* necessary for revolver behavior */
+	width: 300px; 		/* width of clip region */
+
+}
+
+
+/* example7 specific styling [optional] */
+#example7 div.revolve {
+	clear: both;		
+	margin: 10px 30px;
+	border: 1px solid #000;
+}
+
+#example7 div.revolve img {
+	vertical-align: middle;
+}
+
+
+/**** SCROLL COMPONENTS  *****/
+#example7 div.button {
+	float: left;
+	
+	text-align: center;
+	color: #FFF;
+	background: #000;
+	cursor: pointer;
+	
+	margin: 10px 10px;
+	padding: 0 30px;
+}
+
+</style>
+
+<div id="example7">
+	
+	
+	<div class="prev-button button">backward</div>
+	<div class="next-button button">forward</div>
+	
+	<div class="revolve">
+		<div class="revolve-content">
+			Populated by <a href="http://flickr.com">Flickr.com</a>
+		</div>
+	</div>
+	
+	
+	
+</div>
+
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function(){
+  
+  // initialize revolver
+  $('#example7 div.revolve').jqRevolve({
+    next: $('#example7 div.next-button')[0],
+    prev: $('#example7 div.prev-button')[0]
+  });
+  
+  // fill revolver content with random Flickr.com imagery
+  $.getJSON(&quot;http://api.flickr.com/services/feeds/photos_public.gne?tags=lemur&amp;format=json&amp;jsoncallback=?&quot;,
+        function(data){
+      $.each(data.items, function(i,item){
+       $(&quot;&lt;img/&gt;&quot;).attr(&quot;src&quot;, item.media.m).appendTo(&quot;#example7 div.revolve-content&quot;);
+            if ( i == 7 ) return false;
+          });
+      
+      // refresh example 7's content [sizes to native height]
+      $('#example7 div.revolve').jqrRefresh();
+        }
+  );
+});
+
+  
+  </pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+
+
+/**** CLIP REGION  *****/
+#example7 div.revolve { 
+  position: relative;  /* must be relative or absolute */
+  overflow: hidden;  /* necessary for revolver behavior */
+  width: 300px;     /* width of clip region */
+
+}
+
+
+/* example7 specific styling [optional] */
+#example7 div.revolve {
+  clear: both;    
+  margin: 10px 30px;
+  border: 1px solid #000;
+}
+
+#example7 div.revolve img {
+  vertical-align: middle;
+}
+
+
+/**** SCROLL COMPONENTS  *****/
+#example7 div.button {
+  float: left;
+  
+  text-align: center;
+  color: #FFF;
+  background: #000;
+  cursor: pointer;
+  
+  margin: 10px 10px;
+  padding: 0 30px;
+}
+</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;div id=&quot;example7&quot;&gt;
+  
+  
+  &lt;div class=&quot;prev-button button&quot;&gt;backward&lt;/div&gt;
+  &lt;div class=&quot;next-button button&quot;&gt;forward&lt;/div&gt;
+  
+  &lt;div class=&quot;revolve&quot;&gt;
+    &lt;div class=&quot;revolve-content&quot;&gt;
+      Populated by &lt;a href=&quot;http://flickr.com&quot;&gt;Flickr.com&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  
+  
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+
+
+<br clear="both" />
+
+<div class="wwwwh">Etc.</div>
+
+<p><em>Previous Releases</em></p>
+All revisions of jqRevolve are available are available <a href="release/">here</a>.
+
+<a class="anchor" name="etc"></a>
+
+<dl>
+
+<dt>Known Issues, Pending Fixes</dt>
+<dd>
+<ul>
+<li>Support Vertical Scrolling</li>
+<li>Incorporate Wrap-Around (true Carousel) Feature</li>
+<li>Add Callbacks [before scroll, after scroll]</li>
+<li>Add a Scroll Bar / Progress Bar</li>
+<li>Add mouseOver parameter to automatically start scrolling when next/previous elements are moused over</li>
+</ul>
+</dd>
+
+<dt>R2 Changes</dt>
+<dd>
+<ul>
+<li>Enhanced scrolling routine - use a sigmoid curve for pressure calculation</li>
+<li>Fixed autoSizing under Linux Firefox, Safari.</li>
+<li>Code cleanups, enhanced readability</li>
+</ul>
+</dd>
+
+<dt>R1 Changes</dt>
+<dd>
+<ul>
+<li>Initial Revision</li>
+</ul>
+</dd>
+
+</dl>
+
+<div class="src">
+<div class="js">
+<a href="#">Earlier Release Changes</a>
+
+<pre>
+
+</pre>
+
+</div>
+</div>
+
+<br /><br />
+
+
+<p><em>Contributing</em>;</p>
+<hr />
+If you come up with any cool designs or themes for jqRevolve, please feel free to share! Email your submissions, changes, or bug reports to &lt;bhb@iceburg.net&gt;.
+
+<script type="text/javascript">
+
+// common
+$().ready(function() {
+   $('div.src a').click(function(){
+    $('~ pre',this).toggle();
+    return false;
+   });
+});
+</script>
+
+</div>
+
+</body>
+</html>

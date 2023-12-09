@@ -1,0 +1,2180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>jqModal :: Minimalistic Modaling for jQuery</title>
+<meta name="author" content="Brice Burgess" />
+<meta name="description" content="Minimalistic Modaling for jQuery. Modal Dialog Popup Windows in javascript." />
+<meta name="keywords" content="modal, modal window, jquery, javascript, popup, dialog" />
+<link type="text/css" rel="stylesheet" media="all" href="../common/css/common.css" />
+<link type="text/css" rel="stylesheet" media="all" href="../common/css/example.css" />
+
+
+<!-- jqModal Dependencies -->
+<script type="text/javascript" src="../common/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="jqModal.js"></script>
+
+<!--  jqModal Styling -->
+<link type="text/css" rel="stylesheet" media="all" href="jqModal.css" />
+
+<!-- Optional Javascript for Drag'n'Resize -->
+<script type="text/javascript" src="inc/jqDnR.js"></script>
+
+<script type="text/javascript">$().ready(function(){$('#nav').css('opacity',0.68);});</script>
+</head>
+<body>
+
+<div id="nav">
+<ul>
+<li><a href="#who">About</a></li>
+<li><a href="#where">Download</a></li>
+<li><a href="#how">Usage</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#etc">Etc.</a></li>
+</div>
+
+<div class="box">
+
+<a class="anchor" name="who"></a>
+<div class="wwwwh">Who?</div>
+
+<div id="heading">
+jqModal <p>Minimalist Modaling with jQuery</p>
+</div>
+
+<br />
+
+<div class="wwwwh">What?</div>
+<p>
+jqModal is a plugin for <a href="http://jquery.com/">jQuery</a> to help you display modals, popups, and notices. It is flexible and tiny, akin to a "Swiss Army Knife", and provides a great base for your windowing needs.
+</p>
+
+<p><em>Features</em>;</p>
+<ul>
+<li>Designer Frieldly - Use *your* HTML+CSS for Layout and Styling</li>
+<li>Translator/i18n friendly - No hardcoded English strings</li>
+<li>Developer friendly - Extensible through callbacks to make anything possible (gallery slideshows, video-conferencing, &c)</li>
+<li>Simple support for remotely loaded content (aka "ajax")</li>
+<li>Multiple Modals per page (including nested Modal-in-Modal)</li>
+<li>Supported by all browsers capable of running jQuery 1.2.3+</li>
+</ul>
+
+<div class="wwwwh">Why?</div>
+<p>
+There is no shortage of dialog scripts that dazzle their audience. Some will try to walk your dog. They can be rooted in unnecessary effects, rigid, and cumbersome. This is not where jqModal is headed! I wanted to write a simple modal framework. Something <em>lightweight</em> yet <em>powerful</em> and <em>flexible</em>. The original strived to resemble an assembly <a href="http://en.wikipedia.org/wiki/Demoscene">demoscene</a> binary. Since r16 jqModal is readable and <a href="https://github.com/briceburg/jqModal/">community</a> maintainable.
+</p>
+<p>
+If you like jqModal, please consider a dontation to support its development:
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYCra8W5qbASUTPeUy25zkfm179nPYfg9oeRwRwwmOagP1RM/RTQgB/PC6LKXS6OAZHEllV+Js7ndn5YtXc0KRO8e50I2Gr8y0g3g075WIpmlWvL0PIYGRnfJW+YJu+zWoEfCQHH/+3a3o1rPN6+FVqFKzUs8w+SEyLHlzEL+Z94HzELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIaY4Mn8SU2OyAgZAD3/NmNl+fxUYZRhQLfp0ZwtegunrFRX9h1lmg+yODHknBzRTa/Y3PA3ZPTdR5iks//+5CioQH3VLbBXZKhA8d1opynKCFw7QJXSAR3VoHNOK7iMCuTSvXHyxpH++ZYLBs/7enU0iNPax9blVTnHe5/xqPrpyRIR4AceNEXd9YxZNLBgQZVNTdmEMic/fNep6gggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wNzAyMjEyMzUyNDhaMCMGCSqGSIb3DQEJBDEWBBTTpidIK5YE817gr+84He9/1rAdLDANBgkqhkiG9w0BAQEFAASBgD9LMYsplPejp8LWcLm+8nboKu1F19TYiG3hAIyhdB5Ag6wqbb8YD9/fdV3xljOq7zgO4KVTwI+lU7xGyZWH9EU6nONRxS53VqWrhuXo8JzILC/HmqyV9OpmQwC7CxQcbzfLcPGAVimZjTRicRATPY0xLSgh0Tdfs6/Y8TOu3IFT-----END PKCS7-----
+">
+</form>
+</p>
+
+<div class="wwwwh">When?</div>
+<p>
+Current Version: 1.4.0 <em>2015.08.16 +r25</em>
+<br /> Copyright &copy; 2007-2023 Brice Burgess - released under both the <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a> and <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> licenses.
+</p>
+
+<a class="anchor" name="where"></a>
+<div class="wwwwh">Where?</div>
+<p>
+Download the <em><a href="jqModal.js">Plugin</a></em> (jqModal.js) [jQuery >= <strong>1.2.3</strong>]
+<br />
+Download the <em><a href="jqModal.css">Styling</a></em> (jqModal.css)
+<br /><br />
+<strong>[<a href="https://github.com/briceburg/jqModal/">SOURCECODE</a>] &middot; [<a href="https://github.com/briceburg/jqModal/blob/master/CHANGELOG.md">CHANGELOG</a>] &middot; [<a href="https://github.com/briceburg/jqModal/tree/master/releases">RELEASES</a>]</strong>
+<br /><br />
+<strong>[OPTIONAL]</strong> <em><a href="../jqDnR/">Drag'n'Resize Plugin</a></em> (jqDnR.js - 874 bytes) - any other <a href="http://jqueryui.com/draggable/">drag</a> & <a href="http://wayfarerweb.com/jquery/plugins/animadrag/">drop</a> plugin will work.
+</p>
+
+<strong>Image Caching NOTE</strong>; Some browsers do not preload background images and image elements if they are hidden which can
+effect the responsiveness of your dialogs. This page uses an OPTIONAL workaround to get around this issue. It preloads dialog decoration images for faster display.
+See the code used by clicking the HTML tab below;
+<div class="src">
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;!-- optional: image cacheing. Any images contained in this div will be
+	loaded offscreen, and thus cached --&gt;
+
+&lt;style type="text/css"&gt;
+/* Caching CSS created with the help of;
+	Klaus Hartl &lt;klaus.hartl@stilbuero.de&gt; */
+@media projection, screen {
+     div.imgCache { position: absolute; left: -8000px; top: -8000px; }
+     div.imgCache img { display:block; }
+}
+@media print { div.imgCache { display: none; } }
+&lt;/style&gt;
+
+&lt;div class="imgCache"&gt;
+	&lt;img src="inc/busy.gif" /&gt;
+	&lt;img src="img/dialog/close.gif" /&gt;
+	&lt;img src="img/dialog/sprite.gif" /&gt;
+	&lt;img src="img/dialog/bl.gif" /&gt;
+	&lt;img src="img/dialog/br.gif" /&gt;
+	&lt;img src="img/dialog/bc.gif" /&gt;
+	&lt;img src="img/notice/note_icon.png" /&gt;
+	&lt;img src="img/notice/close_icon.png" /&gt;
+&lt;/div&gt;
+</pre>
+</div></div>
+
+<!-- optional: image caching. Any images contained in this div will be
+	loaded offscreen, and thus cached.-->
+
+<style type="text/css">
+/* Caching CSS courtesf of;
+	Klaus Hartl <klaus.hartl@stilbuero.de> */
+@media projection, screen {
+     div.imgCache { position: absolute; left: -8000px; top: -8000px; }
+     div.imgCache img { display:block; }
+}
+@media print { div.imgCache { display: none; } }
+</style>
+
+<div class="imgCache">
+	<img src="inc/busy.gif" />
+	<img src="img/dialog/close.gif" />
+	<img src="img/dialog/sprite.gif" />
+	<img src="img/dialog/bl.gif" />
+	<img src="img/dialog/br.gif" />
+	<img src="img/dialog/bc.gif" />
+	<img src="img/notice/note_icon.png" />
+	<img src="img/notice/close_icon.png" />
+</div>
+
+<div style="width:100%;text-align:center;clear:both;">Test for Internet Explorer 6: <select><option>ActiveX Bleed?</option><option>hope not!</option></select></div>
+
+<a class="anchor" name="how"></a>
+<div class="wwwwh">How?</div>
+
+<p><em>Usage</em></p>
+<dl>
+<dt>1. Add modal element(s) to your page</dt>
+<dd>Modal elements are usually &lt;div&gt; containers with their visibility set to hidden. CSS is used for styling and position. Modals are displayed("shown") when a trigger event occurs. Their contents can be inline (hardcoded in the HTML) or added via ajax when the modal is shown.</dd>
+<dt>2. Initialize your modal(s)</dt>
+<dd>Modal elements must be initialized via <strong>$.jqm()</strong> before they can be shown. You can customize your modals by passing an options object (e.g. <strong>$('#modal').jqm({modal: true, trigger: 'a.showModal'});</strong>).
+<p />
+NOTE: $.jqm() is usually called ONCE per modal. Subsequent calls to $.jqm() will update the modal(s) options using <a href="http://api.jquery.com/jquery.extend/">jQuery.extend()</a>.</dd>
+<dt>3. Trigger your modal</dt>
+<dd>Modals are shown when a "trigger" element is clicked, or manually triggered via <strong>$('#modal').jqmShow()</strong>.
+</dl>
+
+<p><em>Functions</em></p>
+<dl>
+<dt>jqm</dt>
+<dd>
+ Initialize element(s) as modals. Accepts an options object. If a modal is already initialized, the call will update its options via <a href="http://api.jquery.com/jquery.extend/">jQuery.extend()</a>.
+
+ <p class="code">
+ $('#dialog').jqm(); <br />
+ $('.dialogs').jqm({ajax:'@href',modal:true});
+ </p>
+</dd>
+
+<dt>jqmShow</dt>
+<dd>
+ Show modal element(s). Will not execute on opened modals.
+
+ <p class="code">
+ $('#dialog').jqmShow(); <br />
+ $('.dialogs').jqmShow();
+ </p>
+
+</dd>
+
+<dt>jqmHide</dt>
+<dd>
+ Hide modal element(s). Will not execute on closed modals.
+
+ <p class="code">
+ $('#dialog').jqmHide(); <br />
+ $('.dialogs').jqmHide();
+ </p>
+
+</dd>
+
+<dt>jqmAddTrigger</dt>
+<dd>
+ Called on a modal(s). Passed element(s) will show the modal(s) when clicked.
+  Accepts;
+  <ul>
+      <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
+      <li>(object) A jQuery Collection</li>
+      <li>(object) A DOM element</li>
+  </ul>
+
+ <p class="code">
+ $('#dialog').jqmAddTrigger('.openDialog'); <br />
+ $('.dialogs').jqmAddTrigger($('#openDialogs a'));
+ </p>
+
+</dd>
+
+<dt>jqmAddClose</dt>
+<dd>
+ Called on a modal(s). Passed element(s) will close the modal(s) when clicked.
+  Accepts;<ul>
+      <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
+      <li>(object) A jQuery Collection</li>
+      <li>(object) A DOM element</li>
+  </ul>
+
+ <p class="code">
+ $('#dialog').jqmAddClose('.hideDialog'); <br />
+ $('.dialogs').jqmAddClose($('#hideDialogs a'));
+ </p>
+
+</dd>
+</dl>
+
+<p><em>Defaults</em></p>
+<dl>
+<dt>$.jqm.params</dt>
+<dd>
+Default option values passed to all modals. Override by altering or providing your own.
+</dd>
+
+<dt>$.jqm.focusFunc</dt>
+<dd>
+The "focus function" called whenever modal:true dialogs are active. Alter behavior by overloading.
+</dd>
+</dl>
+
+
+<p><em>Options</em></p>
+
+Options allow tailoring the behavior of modals.
+
+<dl>
+<dt>overlay</dt>
+<dd>The overlay transparency as a percentage. If 0 the overlay is disabled and
+ the page behind the modal will remain interactive. If 100 the overlay will be 100% opaque.
+ <p class="pv">(integer) - default: 50</p>
+</dd>
+
+<dt>overlayClass</dt>
+<dd>Name of CSS class applied to the overlay.
+ <p class="pv">(string) - default: 'jqmOverlay'</p>
+</dd>
+
+<dt>closeClass</dt>
+<dd>Child elements of the modal with a CSS class of closeClass will close the modal when clicked.
+ <p class="pv">(string|false) - default: 'jqmClose'</p>
+</dd>
+
+<dt>trigger</dt>
+<dd>
+  Elements matching trigger will show the modal when clicked. Triggers can be;
+    <ul>
+      <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
+      <li>(object) A DOM element (e.g. $.jqm({trigger: document.getElementByID("showDialog")})</li>
+      <li>(false) The call to $.jqm() will not attach trigger events to elements.</li>
+    </ul>
+ <p class="pv">(string|object|false) - default: '.jqModal'</p>
+</dd>
+
+<dt>ajax</dt>
+<dd>Remotely loads the modal contents. You can pass the URL
+(e.g. $.jqm({ajax:'remote/dialog.html'}) or extract it from an attribute of the triggering element.
+For instance, $(.jqm({ajax:'@href'}) would grab contents from `foo/bar.html` if the triggering element was &lt;a href="foo/bar.html"&gt;Open Modal&lt;/a&gt;.
+If a more complicated routine is desired, use the onShow() and/or onLoad() callback. <em>As of jqModal 1.3, ajax modals are immediately shown.</em>
+ <p class="pv">(string|false) - default: false</p>
+</dd>
+
+<dt>target</dt>
+<dd>
+ <p class="pv">NOTE: target is applicable only if the ajax parameter is passed.</p>
+ Child element(s) of the modal whose contents are replaced with the ajax response. If false, the entire modal contents will be replaced. Target can be;
+ <ul>
+      <li>(string) A jQuery <a href="http://docs.jquery.com/Selectors">Selector</a></li>
+      <li>(object) A DOM element (e.g. $.jqm({target: $('#dialog div.contents')[0]})</li>
+      <li>(false) ajax return overwrites dialog's innerHTML</li>
+    </ul>
+ <p class="pv">(string|false) - default: false</p>
+</dd>
+
+<dt>ajaxText</dt>
+<p class="pv">NOTE: ajaxText is applicable only if the ajax parameter is passed.</p>
+<dd>Optionally replace the contents of the ajax target with the supplied string when ajax modals are triggered. May include HTML (such as an loading image). Will be replaced with server response when received. E.g. $.jqm({ajaxText: '&lt;marquee style="width: 1.5em;"&gt;.. ... .&lt;/marquee&gt;'});</p>
+ <p class="pv">(string|false) - default: false</p>
+</dd>
+
+<dt>modal</dt>
+<dd>Restricts input (mouse clicks, keypresses) to the modal. If false, and if overlay is enabled, clicking the overlay will close the modal.
+ <p class="pv">(boolean) - default: false</p>
+</dd>
+
+<dt>toTop</dt>
+<dd>When true; places the dialog element as a direct child of &lt;body&gt; when shown. This was added to help overcome z-Index stacking order issues.
+<br />
+See the <a href="toTop.html">toTop demo</a> to learn what to do if your overlay covers the entire page *including* the modal dialog!
+ <p class="pv">(boolean) - default: false</p>
+</dd>
+
+<dt>[Callbacks]</dt>
+<dd>Callbacks allow advanced customization of jqModal dialogs. Each callback is passed the "hash" object consisting of the following properties;
+
+    <ul>
+      <li>w: (jQuery object) The modal element</li>
+      <li>c: (object) The modal's options object </li>
+      <li>o: (jQuery object) The overlay element</li>
+      <li>t: (DOM object) The triggering element
+    </ul>
+
+</dd>
+
+<dt>onShow (callback)</dt>
+<dd>
+ Called when a modal is to be shown. Responsible for showing a modal and overlay.
+
+ <p class="code">
+ $('#dialog').jqm({ <br />
+   onShow: function(hash) { <br />
+     hash.o.prependTo('body'); <br />
+     hash.w.css('opacity',0.88).fadeIn(); <br />
+   }}); <br />
+ </p>
+ <p class="pv">(function|false) - default: false</p>
+
+ 	<pre>
+From jqModal.js >
+// onShow callback. Responsible for showing a modal and overlay.
+//  return false to stop opening modal.
+
+// hash object;
+//  w: (jQuery object) The modal element
+//  c: (object) The modal's options object
+//  o: (jQuery object) The overlay element
+//  t: (DOM object) The triggering element
+
+// display the overlay (prepend to body) if not disabled
+if(hash.c.overlay > 0)
+  hash.o.prependTo('body');
+
+// make modal visible
+hash.w.show();
+
+// call focusFunc (attempts to focus on first input in modal)
+$.jqm.focusFunc(hash.w,null);
+
+return true;
+}
+	</pre>
+</dd>
+
+<dt>onHide (callback)</dt>
+<dd>
+ Called when a dialog is to be hidden. Responsible for hiding a modal and overlay.
+
+ <p class="code">
+ $('#dialog').jqm({ <br />
+   onHide: function(hash) { <br />
+     hash.w.fadeOut('2000',function(){ hash.o.remove(); }); <br />
+   }}); <br />
+ </p>
+ <p class="pv">(function|false) - default: false</p>
+</dd>
+
+ 	<pre>
+From jqModal.js >
+onHide = function(hash){
+// onHide callback. Responsible for hiding a modal and overlay.
+//  return false to stop closing modal.
+
+// hash object;
+//  w: (jQuery object) The modal element
+//  c: (object) The modal's options object
+//  o: (jQuery object) The overlay element
+//  t: (DOM object) The triggering element
+
+// hide modal and if overlay, remove overlay.
+hash.w.hide() && hash.o && hash.o.remove();
+
+return true;
+}
+	</pre>
+
+<dt>onLoad (callback)</dt>
+<dd>
+ Called right after ajax content is loaded.
+
+ <p class="code">
+ // onLoad : assign Mike Alsup's most excellent <a href="http://www.malsup.com/jquery/form/">ajaxForm</a> plugin to the returned form element(s). <br />
+ var myLoad = function(hash){ $('form',hash.w).ajaxForm(); }; <br />
+ $('#dialog').jqm({onLoad:myLoad}); <br />
+ </p>
+
+ <p class="pv">(function|false) - default: false</p>
+</dd>
+
+</dl>
+
+<a class="anchor" name="examples"></a>
+<p><em>Examples</em></p>
+
+<div class="example">
+1. <em>Defaults</em> -- <a href="#" class="jqModal">view</a>
+<br/>
+Out-of-box behavior. The window and its content is taken "inline" from the element with an ID of 'dialog'. The dialog is "triggered" (shown) when element(s) with class <i>jqModal</i> are clicked. No parameters are passed, no fancy window decorations used.
+</div>
+<script type="text/javascript">
+$().ready(function() {
+	$('#dialog').jqm();
+});
+</script>
+
+<div class="jqmWindow" id="dialog">
+
+<a href="#" class="jqmClose">Close</a>
+<hr>
+<em>READ ME</em> -->
+This is a "vanilla plain" jqModal window. Behavior and appeareance extend far beyond this.
+The demonstrations on this page will show off a few possibilites. I recommend walking
+through each one to get an understanding of jqModal <em>before</em> using it.
+
+<br /><br />
+You can view the sourcecode of examples by clicking the Javascript, CSS, and HTML tabs.
+Be sure to checkout the <a href="README">documentation</a> too!
+
+<br /><br />
+<em>NOTE</em>; You can close windows by clicking the tinted background known as the "overlay".
+Clicking the overlay will have no effect if the "modal" parameter is passed, or if the
+overlay is disabled.
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function() {
+  $('#dialog').jqm();
+});</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+/* jqModal base Styling courtesy of;
+  Brice Burgess &lt;bhb@iceburg.net&gt; */
+
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+  the Window's z-index value will be set to 3000 by default (in jqModal.js). You
+  can change this value by either;
+    a) supplying one via CSS
+    b) passing the &quot;zIndex&quot; parameter. E.g.  (window).jqm({zIndex: 500}); */
+  
+.jqmWindow {
+    display: none;
+    
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    
+    margin-left: -300px;
+    width: 600px;
+    
+    background-color: #EEE;
+    color: #333;
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: #000; }
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html .jqmWindow {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;#&quot; class=&quot;jqModal&quot;&gt;view&lt;/a&gt;
+...
+&lt;div class=&quot;jqmWindow&quot; id=&quot;dialog&quot;&gt;
+
+&lt;a href=&quot;#&quot; class=&quot;jqmClose&quot;&gt;Close&lt;/a&gt;
+&lt;hr&gt;
+&lt;em&gt;READ ME&lt;/em&gt; --&gt;
+This is a &quot;vanilla plain&quot; jqModal window. Behavior and appeareance extend far beyond this.
+The demonstrations on this page will show off a few possibilites. I recommend walking
+through each one to get an understanding of jqModal &lt;em&gt;before&lt;/em&gt; using it.
+
+&lt;br /&gt;&lt;br /&gt;
+You can view the sourcecode of examples by clicking the Javascript, CSS, and HTML tabs.
+Be sure to checkout the &lt;a href=&quot;README&quot;&gt;documentation&lt;/a&gt; too!
+
+&lt;br /&gt;&lt;br /&gt;
+&lt;em&gt;NOTE&lt;/em&gt;; You can close windows by clicking the tinted background known as the &quot;overlay&quot;.
+Clicking the overlay will have no effect if the &quot;modal&quot; parameter is passed, or if the
+overlay is disabled.
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+
+<div class="example">
+2. <em>AJAX</em> -- <a href="#" class="ex2trigger">view</a>
+<br/>
+This example demonstrates the ajax parameter. The window's content is pulled from a remote source (Relative URL: <i>examples/2.html</i>) when its trigger is clicked. The trigger parameter is used assign a "show trigger" to element(s) with class <i>ex2trigger</i>.
+</div>
+<script type="text/javascript">
+$().ready(function() {
+	$('#ex2').jqm({ajax: 'examples/2.html', trigger: 'a.ex2trigger'});
+});
+</script>
+
+<div class="jqmWindow" id="ex2">
+Please wait... <img src="inc/busy.gif" alt="loading" />
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function() {
+  $('#ex2').jqm({ajax: 'examples/2.html', trigger: 'a.ex2trigger'});
+});</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+/* jqModal base Styling courtesy of;
+  Brice Burgess &lt;bhb@iceburg.net&gt; */
+
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+  the Window's z-index value will be set to 3000 by default (in jqModal.js). You
+  can change this value by either;
+    a) supplying one via CSS
+    b) passing the &quot;zIndex&quot; parameter. E.g.  (window).jqm({zIndex: 500}); */
+  
+.jqmWindow {
+    display: none;
+    
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    
+    margin-left: -300px;
+    width: 600px;
+    
+    background-color: #EEE;
+    color: #333;
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: #000; }
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html .jqmWindow {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;#&quot; class=&quot;ex2trigger&quot;&gt;
+...
+&lt;div class=&quot;jqmWindow&quot; id=&quot;ex2&quot;&gt;
+Please wait... &lt;img src=&quot;inc/busy.gif&quot; alt=&quot;loading&quot; /&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+
+<div class="example">
+3. <em>Styling</em> -- a. <a href="#" id="ex3aTrigger">view</a> (dialog), b. <a href="#" class="ex3bTrigger">view</a> (alert), c. <a href="#" id="ex3cTrigger">view</a> (notice)
+<br/>
+This example demonstrates the ease in which stylish windows are constructed. All HTML and CSS is abstracted from the plugin which allows a designer unprecedented flexibility. Notice how custom overlays, ajax targets, and callbacks are used. I hope to eventually provide a repository of dialog themes. <em>Interested in contributing?</em> -- see note @ bottom of page.
+</div>
+<p>
+<script type="text/javascript">
+$().ready(function() {
+	$('#ex3a').jqm({
+		trigger: '#ex3aTrigger',
+		overlay: 30, /* 0-100 (int) : 0 is off/transparent, 100 is opaque */
+		overlayClass: 'whiteOverlay'})
+		.jqDrag('.jqDrag'); /* make dialog draggable, assign handle to title */
+	
+	// Close Button Highlighting. IE doesn't support :hover. Surprise?
+	$('input.jqmdX')
+	.hover(
+		function(){ $(this).addClass('jqmdXFocus'); }, 
+		function(){ $(this).removeClass('jqmdXFocus'); })
+	.focus( 
+		function(){ this.hideFocus=true; $(this).addClass('jqmdXFocus'); })
+	.blur( 
+		function(){ $(this).removeClass('jqmdXFocus'); });
+
+});
+</script>
+<style>
+div.whiteOverlay { background: url(inc/jqmBG.gif) white; }
+div.jqDrag {cursor: move;}
+
+/* jqmModal dialog CSS courtesy of;
+	Brice Burgess <bhb@iceburg.net> */
+
+div.jqmDialog {
+	display: none;
+    
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    
+    margin-left: -200px;
+	width: 400px;
+
+	overflow: hidden;
+	font-family:verdana,tahoma,helvetica;
+}
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html div.jqmDialog {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+
+/* [[[ Title / Top Classes ]]] */
+div.jqmdTC { 
+	background: #d5ff84 url(img/dialog/sprite.gif) repeat-x 0px -82px; 
+	color: #528c00;
+	padding: 7px 22px 5px 5px;
+	font-family:"sans serif",verdana,tahoma,helvetica;
+	font-weight: bold;
+	* zoom: 1;
+}
+div.jqmdTL { background:  url(img/dialog/sprite.gif) no-repeat 0px -41px; padding-left: 3px;}
+div.jqmdTR { background: url(img/dialog/sprite.gif) no-repeat right 0px; padding-right: 3px; * zoom: 1;}
+
+
+/* [[[ Body / Message Classes ]]] */
+div.jqmdBC {
+	background: url(img/dialog/bc.gif) repeat-x center bottom;
+	padding: 7px 7px 7px;
+	height: 180px;
+	overflow: auto;
+}
+div.jqmdBL { background: url(img/dialog/bl.gif) no-repeat left bottom; padding-left: 7px; }
+div.jqmdBR { background: url(img/dialog/br.gif) no-repeat right bottom; padding-right: 7px; * zoom: 1 }
+
+div.jqmdMSG { color: #317895; }
+
+
+/* [[[ Button classes ]]] */
+input.jqmdX {
+	position: absolute;
+	right: 7px;
+	top: 4px;
+	padding: 0 0 0 19px;
+	height: 19px;
+	width: 0px;
+	background: url(img/dialog/close.gif) no-repeat top left;
+	overflow: hidden;
+}
+input.jqmdXFocus {background-position: bottom left; outline: none;}
+
+div.jqmdBC button, div.jqmdBC input[type="submit"] {
+	margin: 8px 10px 4px 10px;
+	color: #777;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+div.jqmDialog input:focus, div.jqmDialog input.iefocus { background-color: #eaffc3; }
+
+</style>
+
+<div id="ex3a" class="jqmDialog">
+<div class="jqmdTL"><div class="jqmdTR"><div class="jqmdTC jqDrag">Dialog Title</div></div></div>
+<div class="jqmdBL"><div class="jqmdBR"><div class="jqmdBC">
+
+<div class="jqmdMSG">
+Styled windows or dialogs are easy!
+ 
+<br /><br />
+This particular theme was done for <a href="http://www.pommo.org">poMMo</a> --
+feel free to borrow the styling, or use it as a reference when creating your own.
+CSS and Markup is available under the HTML + CSS tabs of example 3a.
+</div>
+
+</div></div></div>
+<input type="image" src="img/dialog/close.gif" class="jqmdX jqmClose" />
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function() {
+  $('#ex3a').jqm({
+    trigger: '#ex3aTrigger',
+    overlay: 30, /* 0-100 (int) : 0 is off/transparent, 100 is opaque */
+    overlayClass: 'whiteOverlay'})
+    .jqDrag('.jqDrag'); /* make dialog draggable, assign handle to title */
+  
+  // Close Button Highlighting. IE doesn't support :hover. Surprise?
+  $('input.jqmdX')
+  .hover(
+    function(){ $(this).addClass('jqmdXFocus'); }, 
+    function(){ $(this).removeClass('jqmdXFocus'); })
+  .focus( 
+    function(){ this.hideFocus=true; $(this).addClass('jqmdXFocus'); })
+  .blur( 
+    function(){ $(this).removeClass('jqmdXFocus'); });
+
+});</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+div.whiteOverlay { background: url(inc/jqmBG.gif) white; }
+div.jqDrag {cursor: move;}
+
+/* jqmModal dialog CSS courtesy of;
+  Brice Burgess &lt;bhb@iceburg.net&gt; */
+
+div.jqmDialog {
+  display: none;
+    
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    
+    margin-left: -200px;
+  width: 400px;
+
+  overflow: hidden;
+  font-family:verdana,tahoma,helvetica;
+}
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html div.jqmDialog {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+
+/* [[[ Title / Top Classes ]]] */
+div.jqmdTC { 
+  background: #d5ff84 url(img/dialog/sprite.gif) repeat-x 0px -82px; 
+  color: #528c00;
+  padding: 7px 22px 5px 5px;
+  font-family:&quot;sans serif&quot;,verdana,tahoma,helvetica;
+  font-weight: bold;
+  * zoom: 1;
+}
+div.jqmdTL { background:  url(img/dialog/sprite.gif) no-repeat 0px -41px; padding-left: 3px;}
+div.jqmdTR { background: url(img/dialog/sprite.gif) no-repeat right 0px; padding-right: 3px; * zoom: 1;}
+
+
+/* [[[ Body / Message Classes ]]] */
+div.jqmdBC {
+  background: url(img/dialog/bc.gif) repeat-x center bottom;
+  padding: 7px 7px 7px;
+  height: 180px;
+  overflow: auto;
+}
+div.jqmdBL { background: url(img/dialog/bl.gif) no-repeat left bottom; padding-left: 7px; }
+div.jqmdBR { background: url(img/dialog/br.gif) no-repeat right bottom; padding-right: 7px; * zoom: 1 }
+
+div.jqmdMSG { color: #317895; }
+
+
+/* [[[ Button classes ]]] */
+input.jqmdX {
+  position: absolute;
+  right: 7px;
+  top: 4px;
+  padding: 0 0 0 19px;
+  height: 19px;
+  width: 0px;
+  background: url(img/dialog/close.gif) no-repeat top left;
+  overflow: hidden;
+}
+input.jqmdXFocus {background-position: bottom left; outline: none;}
+
+div.jqmdBC button, div.jqmdBC input[type=&quot;submit&quot;] {
+  margin: 8px 10px 4px 10px;
+  color: #777;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+div.jqmDialog input:focus, div.jqmDialog input.iefocus { background-color: #eaffc3; }
+</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;#&quot; id=&quot;ex3aTrigger&quot;&gt;view&lt;/a&gt; (dialog)
+...
+&lt;div id=&quot;ex3a&quot; class=&quot;jqmDialog&quot;&gt;
+&lt;div class=&quot;jqmdTL&quot;&gt;&lt;div class=&quot;jqmdTR&quot;&gt;&lt;div class=&quot;jqmdTC jqDrag&quot;&gt;Dialog Title&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;jqmdBL&quot;&gt;&lt;div class=&quot;jqmdBR&quot;&gt;&lt;div class=&quot;jqmdBC&quot;&gt;
+
+&lt;div class=&quot;jqmdMSG&quot;&gt;
+Styled windows or dialogs are easy!
+ 
+&lt;br /&gt;&lt;br /&gt;
+This particular theme was done for &lt;a href=&quot;http://www.pommo.org&quot;&gt;poMMo&lt;/a&gt; --
+feel free to borrow the styling, or use it as a reference when creating your own.
+CSS and Markup is available under the HTML + CSS tabs of example 3a.
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;input type=&quot;image&quot; src=&quot;img/dialog/close.gif&quot; class=&quot;jqmdX jqmClose&quot; /&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+&nbsp; <strong>3a</strong> (dialog) - custom overlay, draggable window.
+</p>
+<p>
+<script type="text/javascript">
+$().ready(function() {
+	
+	// select + reference "triggering element" -- will pass to $.jqm()
+	var triggers = $('a.ex3bTrigger')[0];
+	
+	// NOTE; we could have used document.getElementById(), or selected
+	//  multiple elemets with $(..selector..) and passed the trigger
+	//  as a jQuery object. OR, just include the string '#ex3btrigger' 
+	//  as the trigger parameter (as typically demonstrated).
+	
+	//  NOTE; we supply a target for the ajax return. This allows us
+	//   to keep the structure of the alert window. An element can 
+	//   also be passed (see the documentation) as target.
+	
+	$('#ex3b').jqm({
+		trigger: triggers,
+		ajax: 'examples/3b.html',
+		target: 'div.jqmAlertContent',
+		overlay: 0
+		});
+});
+</script>
+<style>
+/* jqModal alert CSS courtesy of;
+	 Alexandre Plennevaux <alexandre@pixeline.be>,
+	 Brice Burgess <bhb@iceburg.net> */
+
+
+div.jqmAlert { /* contains + positions the alert window */
+	display: none;
+	
+	position: fixed;
+	top: 17%;
+	width: 100%;
+}
+    
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html div.jqmAlert {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+div.jqmAlertWindow {
+	height:auto;
+	width: auto;
+	margin: auto;
+	
+	max-width:400px;
+	padding: 0 10px 10px;
+	
+	background:#111;
+	border:1px dotted #FFF;
+}
+
+.jqmAlertTitle{
+	margin:5px 2px;
+	height:20px;
+	color:#FFF;
+	background:#000;
+}
+.jqmAlertTitle h1{
+	margin:5px 2px;
+	padding-left:5px;
+	padding:0;
+	font-size:14px;
+	text-transform:capitalize;
+	letter-spacing:-1px;
+	font-weight:bold;
+	color:#FFF;
+
+	float:left;
+	height:20px;
+}
+
+div.jqmAlert .jqmClose em{display:none;}
+div.jqmAlert .jqmClose {
+	width:20px;
+	height:20px;
+	display:block;
+	float:right;
+	clear:right;
+	background:transparent url(img/alert/close_icon_double.png) 0 0 no-repeat;
+}
+
+div.jqmAlert a.jqmClose:hover,div.jqmAlert a.jqmCloseHover{ background-position: 0 -20px; }
+
+div.jqmAlertContent{
+	border-top:px;
+	color:#FFF;
+	font:11px/14pt arial;
+	padding:5px 20px 5px;
+	margin:5px;
+	border:1px dotted #111;
+	letter-spacing:0px;
+	background:#111 url(img/alert/darkgrid.png);
+}
+
+/*Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°
+  clearing a float without additional markup
+   http://www.positioniseverything.net/easyclearing.html */
+
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+</style>
+
+<div class="jqmAlert" id="ex3b">
+
+<div id="ex3b" class="jqmAlertWindow">
+    <div class="jqmAlertTitle clearfix">
+		<h1>Did you know?</h1><a href="#" class="jqmClose"><em>Close</em></a>
+	</div>
+	
+	<div class="jqmAlertContent">
+	<p>Please wait... <img src="inc/busy.gif" alt="loading" /></p>
+	</div>
+</div>
+
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function() {
+  
+  // select + reference &quot;triggering element&quot; -- will pass to $.jqm()
+  var triggers = $('a.ex3bTrigger')[0];
+  
+  // NOTE; we could have used document.getElementById(), or selected
+  //  multiple elemets with $(..selector..) and passed the trigger
+  //  as a jQuery object. OR, just include the string '#ex3btrigger' 
+  //  as the trigger parameter (as typically demonstrated).
+  
+  //  NOTE; we supply a target for the ajax return. This allows us
+  //   to keep the structure of the alert window. An element can 
+  //   also be passed (see the documentation) as target.
+  
+  $('#ex3b').jqm({
+    trigger: triggers,
+    ajax: 'examples/3b.html',
+    target: 'div.jqmAlertContent',
+    overlay: 0
+    });
+});</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+/* jqModal alert CSS courtesy of;
+   Alexandre Plennevaux &lt;alexandre@pixeline.be&gt;,
+   Brice Burgess &lt;bhb@iceburg.net&gt; */
+
+
+div.jqmAlert { /* contains + positions the alert window */
+  display: none;
+  
+  position: fixed;
+  top: 17%;
+  width: 100%;
+}
+    
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html div.jqmAlert {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+div.jqmAlertWindow {
+  height:auto;
+  width: auto;
+  margin: auto;
+  
+  max-width:400px;
+  padding: 0 10px 10px;
+  
+  background:#111;
+  border:1px dotted #FFF;
+}
+
+.jqmAlertTitle{
+  margin:5px 2px;
+  height:20px;
+  color:#FFF;
+  background:#000;
+}
+.jqmAlertTitle h1{
+  margin:5px 2px;
+  padding-left:5px;
+  padding:0;
+  font-size:14px;
+  text-transform:capitalize;
+  letter-spacing:-1px;
+  font-weight:bold;
+  color:#FFF;
+
+  float:left;
+  height:20px;
+}
+
+div.jqmAlert .jqmClose em{display:none;}
+div.jqmAlert .jqmClose {
+  width:20px;
+  height:20px;
+  display:block;
+  float:right;
+  clear:right;
+  background:transparent url(img/alert/close_icon_double.png) 0 0 no-repeat;
+}
+
+div.jqmAlert a.jqmClose:hover,div.jqmAlert a.jqmCloseHover{ background-position: 0 -20px; }
+
+div.jqmAlertContent{
+  border-top:px;
+  color:#FFF;
+  font:11px/14pt arial;
+  padding:5px 20px 5px;
+  margin:5px;
+  border:1px dotted #111;
+  letter-spacing:0px;
+  background:#111 url(img/alert/darkgrid.png);
+}
+
+/*Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°
+  clearing a float without additional markup
+   http://www.positioniseverything.net/easyclearing.html */
+
+.clearfix:after {
+    content: &quot;.&quot;; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;#&quot; class=&quot;ex3bTrigger&quot;&gt;view&lt;/a&gt; (alert)
+...
+&lt;div class=&quot;jqmAlert&quot; id=&quot;ex3b&quot;&gt;
+
+&lt;div id=&quot;ex3b&quot; class=&quot;jqmAlertWindow&quot;&gt;
+    &lt;div class=&quot;jqmAlertTitle clearfix&quot;&gt;
+    &lt;h1&gt;Did you know?&lt;/h1&gt;&lt;a href=&quot;#&quot; class=&quot;jqmClose&quot;&gt;&lt;em&gt;Close&lt;/em&gt;&lt;/a&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;jqmAlertContent&quot;&gt;
+  &lt;p&gt;Please wait... &lt;img src=&quot;inc/busy.gif&quot; alt=&quot;loading&quot; /&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;</pre>
+</div>
+</div>
+&nbsp; <strong>3b</strong> (alert) - ajax target.
+</p>
+<p>
+<script type="text/javascript">
+// this example shows the use of onShow and onHide callbacks. Make
+// sure to read the documentation for futher instructions, and
+// an explanation of the "hash" argument.
+
+$().ready(function() {
+	$('#ex3c')
+		.jqDrag('.jqDrag')
+		.jqResize('.jqResize')
+		.jqm({
+			trigger:'#ex3cTrigger',
+			overlay: 0,
+			onShow: function(h) {
+				/* callback executed when a trigger click. Show notice */
+				h.w.css('opacity',0.92).slideDown(function(){ if(h.o) h.o.show(); });
+			},
+			onHide: function(h) {
+				/* callback executed on window hide. Hide notice, overlay. */
+				h.w.slideUp("slow",function() { if(h.o) h.o.remove(); });
+			} 
+			});
+});
+
+</script>
+<style>
+div.jqmNotice img.jqResize {position: absolute; right: 2px; bottom: 2px;}
+
+/* Notice CSS courtesy of;
+	 Alexandre Plennevaux <alexandre@pixeline.be>,
+	 Brice Burgess <bhb@iceburg.net> */
+
+div.jqmNotice {
+    display: none;
+    
+    position: relative;
+    
+    width: 320px;
+	background:#FFFFCC url(img/notice/note_icon.png) 5px 5px no-repeat;
+    border: 1px solid #000;
+    padding: 0;
+}
+
+.jqmnTitle{margin: 0 25px;}
+	
+.jqmnTitle h1{
+	margin: 5px 0;
+	padding-left:5px;
+	width: 100%;
+	
+	font-size:10px;
+	color:#FFFFCC;
+	background-color:#505050;
+}
+
+div.jqmNotice .jqmClose {
+	position: absolute;
+	cursor: pointer;
+	right: 4px;
+	top: 6px;
+}
+
+.jqmnContent{
+	border-top:1px;
+	color:#000;
+	font:12px/18pt Comic Sans, Comic Sans MS, cursive;
+	padding:0 20px 5px;
+}
+</style>
+
+<div style="position: absolute; margin: -100px 0 0 100px;">
+<div id="ex3c" class="jqmNotice">
+    <div class="jqmnTitle jqDrag">
+    	<h1>Did you know?</h1>
+    </div>
+	
+	<div class="jqmnContent">
+	<p>Pine, spruce, or other evergreen wood should never be used in barbecues. These woods, when burning or smoking, can add harmful tar and resins to the food. Only hardwoods should be used for smoking and grilling, such as oak, pecan, hickory, maple, cherry, alder, apple, or mesquite, depending on the type of meat being cooked.</p>
+	</div>
+	
+	<img src="img/notice/close_icon.png" alt="close" class="jqmClose" />
+	<img src="img/dialog/resize.gif" alt="resize" class="jqResize" />
+</div>
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+// this example shows the use of onShow and onHide callbacks. Make
+// sure to read the documentation for futher instructions, and
+// an explanation of the &quot;hash&quot; argument.
+
+$().ready(function() {
+  $('#ex3c')
+    .jqDrag('.jqDrag')
+    .jqResize('.jqResize')
+    .jqm({
+      trigger:'#ex3cTrigger',
+      overlay: 0,
+      onShow: function(h) {
+        /* callback executed when a trigger click. Show notice */
+        h.w.css('opacity',0.92).slideDown(function(){ if(h.o) h.o.show(); });
+      },
+      onHide: function(h) {
+        /* callback executed on window hide. Hide notice, overlay. */
+        h.w.slideUp(&quot;slow&quot;,function() { if(h.o) h.o.remove(); });
+      } 
+      });
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+div.jqmNotice img.jqResize {position: absolute; right: 2px; bottom: 2px;}
+
+/* Notice CSS courtesy of;
+   Alexandre Plennevaux &lt;alexandre@pixeline.be&gt;,
+   Brice Burgess &lt;bhb@iceburg.net&gt; */
+
+div.jqmNotice {
+    display: none;
+    
+    position: relative;
+    
+    width: 320px;
+  background:#FFFFCC url(img/notice/note_icon.png) 5px 5px no-repeat;
+    border: 1px solid #000;
+    padding: 0;
+}
+
+.jqmnTitle{margin: 0 25px;}
+  
+.jqmnTitle h1{
+  margin: 5px 0;
+  padding-left:5px;
+  width: 100%;
+  
+  font-size:10px;
+  color:#FFFFCC;
+  background-color:#505050;
+}
+
+div.jqmNotice .jqmClose {
+  position: absolute;
+  cursor: pointer;
+  right: 4px;
+  top: 6px;
+}
+
+.jqmnContent{
+  border-top:1px;
+  color:#000;
+  font:12px/18pt Comic Sans, Comic Sans MS, cursive;
+  padding:0 20px 5px;
+}</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;#&quot; id=&quot;ex3cTrigger&quot;&gt;view&lt;/a&gt; (notice)
+...
+&lt;div style=&quot;position: absolute; margin: -100px 0 0 100px;&quot;&gt;
+&lt;div id=&quot;ex3c&quot; class=&quot;jqmNotice&quot;&gt;
+    &lt;div class=&quot;jqmnTitle jqDrag&quot;&gt;
+      &lt;h1&gt;Did you know?&lt;/h1&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&quot;jqmnContent&quot;&gt;
+  &lt;p&gt;Pine, spruce, or other evergreen wood should never be used in barbecues. These woods, when burning or smoking, can add harmful tar and resins to the food. Only hardwoods should be used for smoking and grilling, such as oak, pecan, hickory, maple, cherry, alder, apple, or mesquite, depending on the type of meat being cooked.&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;img src=&quot;img/notice/close_icon.png&quot; alt=&quot;close&quot; class=&quot;jqmClose&quot; /&gt;
+  &lt;img src=&quot;img/dialog/resize.gif&quot; alt=&quot;resize&quot; class=&quot;jqResize&quot; /&gt;
+&lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+&nbsp; <strong>3c</strong> (alert) - onShow, onHide callbacks.
+</p>
+
+
+<div class="example">
+4. <em>Modal, Nested Modal</em> -- a. <a href="examples/4a.html" class="ex4Trigger">view</a> (4a.html), b. <a href="examples/4b.html" class="ex4Trigger">view</a> (4b.html)
+<br/>
+Focus can be forced on a dialog, making it a true "modal" dialog. The <strong>$.jqm.focusFunc</strong> is called to lock activity to the active modal. This example also exhibits the <strong>ajax attribute selector</strong> (using @href). Any DOM attribute can be used to extract the ajax url (see the <a href="README">documentation</a>).
+</div>
+<script type="text/javascript">
+$().ready(function() {
+	
+	// notice that you can pass an element as the target 
+	//  in addition to a string selector.
+	var t = $('#ex4 div.jqmdMSG');
+	
+	$('#ex4').jqm({
+		trigger: 'a.ex4Trigger',
+		ajax: '@href', /* Extract ajax URL from the 'href' attribute of triggering element */
+		target: t,
+		modal: true, /* FORCE FOCUS */
+		onHide: function(h) { 
+			t.html('Please Wait...');  // Clear Content HTML on Hide.
+			h.o.remove(); // remove overlay
+			h.w.fadeOut(888); // hide window
+			
+		},
+		overlay: 0});
+	
+	 // nested dialog
+	 $('#ex4c').jqm({modal: true, overlay: 10, trigger: false});
+	 
+	// Close Button Highlighting Javascript provided in ex3a.
+});
+</script>
+<style>
+/* jqmModal dialog CSS inherited from Example 3a ... */
+
+div.jqmdAbove { z-index: 5000; top: 8%; } /* used by 4c -- nested modal */
+
+div.jqmdWide { width: 560px; margin-left: -280px; }
+div.jqmdTall { height: 330px; }
+
+
+div.centered { width: 100%; text-align: center; }
+div.buttons input{ margin: 10px 14px; }
+div.output { margin: 10px; color: red; }
+
+.largeText { font-size: 120%; font-weight: bold; }
+.smallText { font-size: 85%; }
+
+</style>
+
+<div id="ex4" class="jqmDialog jqmdWide">
+<div class="jqmdTL"><div class="jqmdTR"><div class="jqmdTC">Modal Dialog</div></div></div>
+<div class="jqmdBL"><div class="jqmdBR"><div class="jqmdBC">
+
+<div class="jqmdMSG">
+<p>Please wait... <img src="inc/busy.gif" alt="loading" /></p>
+</div>
+
+</div></div></div>
+<input type="image" src="img/dialog/close.gif" class="jqmdX jqmClose" />
+</div>
+
+
+<!-- nested dialog -->
+<div id="ex4c" class="jqmDialog jqmdAbove">
+<div class="jqmdTL"><div class="jqmdTR"><div class="jqmdTC">Modal Dialog</div></div></div>
+<div class="jqmdBL"><div class="jqmdBR"><div class="jqmdBC jqmdTall">
+
+<div class="jqmdMSG">
+<p class="largeText">You bet!</p>
+
+<p>Notice that you can only interact with this modal.
+If you click outside of it, focus will return to the form input element.
+</p>
+
+<input type="text" size="15" value="I get focus"/>
+<input type="text" size="15" value=""/>
+
+<p>
+When this window is closed, the focus lock will resume on the calling 
+modal window. This will repeat until there are no more modals open.
+</p>
+
+<p>
+Use the "z-index" to control overlay and window overlap. See the <a href="README">documentation</a>.
+</p>
+</div>
+
+</div></div></div>
+<input type="image" src="img/dialog/close.gif" class="jqmdX jqmClose" />
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function() {
+  
+  // notice that you can pass an element as the target 
+  //  in addition to a string selector.
+  var t = $('#ex4 div.jqmdMSG');
+  
+  $('#ex4').jqm({
+    trigger: 'a.ex4Trigger',
+    ajax: '@href', /* Extract ajax URL from the 'href' attribute of triggering element */
+    target: t,
+    modal: true, /* FORCE FOCUS */
+    onHide: function(h) { 
+      t.html('Please Wait...');  // Clear Content HTML on Hide.
+      h.o.remove(); // remove overlay
+      h.w.fadeOut(888); // hide window
+      
+    },
+    overlay: 0});
+  
+   // nested dialog
+   $('#ex4c').jqm({modal: true, overlay: 10, trigger: false});
+   
+  // Close Button Highlighting Javascript provided in ex3a.
+});</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+/* jqmModal dialog CSS inherited from Example 3a ... */
+
+div.jqmdAbove { z-index: 5000; top: 8%; } /* used by 4c -- nested modal */
+
+div.jqmdWide { width: 560px; margin-left: -280px; }
+div.jqmdTall { height: 330px; }
+
+
+div.centered { width: 100%; text-align: center; }
+div.buttons input{ margin: 10px 14px; }
+div.output { margin: 10px; color: red; }
+
+.largeText { font-size: 120%; font-weight: bold; }
+.smallText { font-size: 85%; }
+</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;examples/4a.html&quot; class=&quot;ex4Trigger&quot;&gt;view&lt;/a&gt; (4a.html)
+ &lt;a href=&quot;examples/4b.html&quot; class=&quot;ex4Trigger&quot;&gt;view&lt;/a&gt; (4b.html)
+...
+&lt;div id=&quot;ex4&quot; class=&quot;jqmDialog jqmdWide&quot;&gt;
+&lt;div class=&quot;jqmdTL&quot;&gt;&lt;div class=&quot;jqmdTR&quot;&gt;&lt;div class=&quot;jqmdTC&quot;&gt;Modal Dialog&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;jqmdBL&quot;&gt;&lt;div class=&quot;jqmdBR&quot;&gt;&lt;div class=&quot;jqmdBC&quot;&gt;
+
+&lt;div class=&quot;jqmdMSG&quot;&gt;
+&lt;p&gt;Please wait... &lt;img src=&quot;inc/busy.gif&quot; alt=&quot;loading&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;input type=&quot;image&quot; src=&quot;img/dialog/close.gif&quot; class=&quot;jqmdX jqmClose&quot; /&gt;
+&lt;/div&gt;
+
+
+&lt;!-- nested dialog --&gt;
+&lt;div id=&quot;ex4c&quot; class=&quot;jqmDialog jqmdAbove&quot;&gt;
+&lt;div class=&quot;jqmdTL&quot;&gt;&lt;div class=&quot;jqmdTR&quot;&gt;&lt;div class=&quot;jqmdTC&quot;&gt;Modal Dialog&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;jqmdBL&quot;&gt;&lt;div class=&quot;jqmdBR&quot;&gt;&lt;div class=&quot;jqmdBC jqmdTall&quot;&gt;
+
+&lt;div class=&quot;jqmdMSG&quot;&gt;
+&lt;p class=&quot;largeText&quot;&gt;You bet!&lt;/p&gt;
+
+&lt;p&gt;Notice that you can only interact with this modal.
+If you click outside of it, focus will return to the form input element.
+&lt;/p&gt;
+
+&lt;input type=&quot;text&quot; size=&quot;15&quot; value=&quot;I get focus&quot;/&gt;
+&lt;input type=&quot;text&quot; size=&quot;15&quot; value=&quot;&quot;/&gt;
+
+&lt;p&gt;
+When this window is closed, the focus lock will resume on the calling 
+modal window. This will repeat until there are no more modals open.
+&lt;/p&gt;
+
+&lt;p&gt;
+Use the &quot;z-index&quot; to control overlay and window overlap. See the &lt;a href=&quot;README&quot;&gt;documentation&lt;/a&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;input type=&quot;image&quot; src=&quot;img/dialog/close.gif&quot; class=&quot;jqmdX jqmClose&quot; /&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+
+<div class="example">
+5. <em>Multi-Show/Hide</em> -- a. <a href="#" id="ex5show">view</a> (show all), b. <a href="#" id="ex5hide">view</a> (hide all), c. <a href="#" id="ex5multi">view</a> (show+hide some)
+<br/>
+Triggers can cotrol more than 1 jqModal. You can assign new show or hide triggers to any jqModal element with $.jqmAddTrigger and $.jqmAddClose.
+</div>
+<script type="text/javascript">
+$().ready(function() {
+	var show = $('#ex5show');
+	var hide = $('#ex5hide');
+	
+	$('div.square')
+		.jqm({overlay: 0, trigger: false})
+		//.jqDrag()
+		.jqmAddTrigger(show)
+		.jqmAddClose(hide)
+		
+	$('#ex5multi').click(function() {
+		$('div.square:even').jqmShow();
+		$('div.square:odd').jqmHide();
+		return false;
+	});
+});
+
+</script>
+<style>
+div.square {
+	display: none;
+	height: 88px;
+	width: 88px;
+	font-size: 10px;
+	padding: 5px;
+	border: 1px solid;
+	position: absolute;
+}
+
+div.square.a{
+	background: #EEE;
+	color: #777;
+	border-color: #777;
+	margin: 0 0 0 300px;
+}
+
+div.square.b{
+	background: #FFF6E5;
+	color: #FF8000;
+	border-color: #FF8000;
+	margin: -300px 0 0 300px;
+}
+
+div.square.c{
+	background: #DDF0BD;
+	color: green;
+	border-color: green;
+	margin: 0 0 0 600px;
+}
+
+div.square.d{
+	background: #FFF1F1;
+	color: red;
+	border-color: red;
+	margin: -300px 0 0 600px;
+}
+</style>
+
+
+<div class="squarePlacer">
+
+<div class="square a">
+Square A
+</div>
+
+<div class="square b">
+Square B
+</div>
+
+<div class="square d">
+Square D
+</div>
+
+<div class="square c">
+Square C
+</div>
+
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+$().ready(function() {
+  var show = $('#ex5show');
+  var hide = $('#ex5hide');
+  
+  $('div.square')
+    .jqm({overlay: 0, trigger: false})
+    //.jqDrag()
+    .jqmAddTrigger(show)
+    .jqmAddClose(hide)
+    
+  $('#ex5multi').click(function() {
+    $('div.square:even').jqmShow();
+    $('div.square:odd').jqmHide();
+    return false;
+  });
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+div.square {
+  display: none;
+  height: 88px;
+  width: 88px;
+  font-size: 10px;
+  padding: 5px;
+  border: 1px solid;
+  position: absolute;
+}
+
+div.square.a{
+  background: #EEE;
+  color: #777;
+  border-color: #777;
+  margin: 0 0 0 300px;
+}
+
+div.square.b{
+  background: #FFF6E5;
+  color: #FF8000;
+  border-color: #FF8000;
+  margin: -300px 0 0 300px;
+}
+
+div.square.c{
+  background: #DDF0BD;
+  color: green;
+  border-color: green;
+  margin: 0 0 0 600px;
+}
+
+div.square.d{
+  background: #FFF1F1;
+  color: red;
+  border-color: red;
+  margin: -300px 0 0 600px;
+}</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;#&quot; id=&quot;ex5show&quot;&gt;view&lt;/a&gt; (show all)
+&lt;a href=&quot;#&quot; id=&quot;ex5hide&quot;&gt;view&lt;/a&gt; (hide all)
+&lt;a href=&quot;#&quot; id=&quot;ex5multi&quot;&gt;view&lt;/a&gt; (show+hide some)
+...
+
+&lt;div class=&quot;squarePlacer&quot;&gt;
+
+&lt;div class=&quot;square a&quot;&gt;
+Square A
+&lt;/div&gt;
+
+&lt;div class=&quot;square b&quot;&gt;
+Square B
+&lt;/div&gt;
+
+&lt;div class=&quot;square d&quot;&gt;
+Square D
+&lt;/div&gt;
+
+&lt;div class=&quot;square c&quot;&gt;
+Square C
+&lt;/div&gt;
+
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+
+<div class="example">
+6. <em>FUN! Overrides</em> -- a. <a href="#" class="alert">view</a> (alert), b. <a href="http://www.jquery.com/" class="confirm">view</a> (confirm)
+<br/>
+It is now time to show a real-world use for jqModal -- overriding the standard <em>alert()</em> and <em>confirm</em> dialogs! Note; due to the single threaded nature of javascript, the confirm() function must be passed a callback -- it does NOT return true/false.
+</div>
+<script type="text/javascript">
+
+/* Overriding Javascript's Alert Dialog */
+
+function alert(msg) {
+	$('#alert')
+		.jqmShow()
+		.find('div.jqmAlertContent')
+			.html(msg);
+}
+
+$().ready(function() {
+	$('#alert').jqm({overlay: 0, modal: true, trigger: false});
+	
+	// trigger an alert whenever links of class alert are pressed.
+	$('a.alert').click(function() { 
+		alert('You Have triggered an alert!'); 
+		return false;
+	});
+});
+
+
+/* Overriding Javascript's Confirm Dialog */
+
+// NOTE; A callback must be passed. It is executed on "cotinue". 
+//  This differs from the standard confirm() function, which returns
+//   only true or false!
+
+// If the callback is a string, it will be considered a "URL", and
+//  followed.
+
+// If the callback is a function, it will be executed.
+
+
+function confirm(msg,callback) {
+	$('#confirm')
+		.jqmShow()
+		.find('p.jqmConfirmMsg')
+			.html(msg)
+		.end()
+		.find(':submit:visible')
+			.click(function(){
+				if(this.value == 'yes')
+					(typeof callback == 'string') ?
+						window.location.href = callback :
+						callback();
+				$('#confirm').jqmHide();
+			});
+}
+
+
+$().ready(function() {
+	$('#confirm').jqm({overlay: 88, modal: true, trigger: false});
+	
+	// trigger a confirm whenever links of class alert are pressed.
+	$('a.confirm').click(function() { 
+		confirm('About to visit: '+this.href+' !',this.href); 
+		return false;
+	});
+});
+
+</script>
+<style>
+div.jqmConfirm input[type="submit"] { padding: 4px; margin: 10px 30px; background: #000; color: #FFF; border: 1px solid #AAA; }
+
+/* jqModal confirm CSS courtesy of;
+	 Alexandre Plennevaux <alexandre@pixeline.be>,
+	 Brice Burgess <bhb@iceburg.net> */
+
+div.jqmConfirm { /* contains + positions the alert window */
+	display: none;
+	
+	position: fixed;
+	top: 17%;
+	width: 100%;
+}
+    
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html div.jqmConfirm {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+div.jqmConfirmWindow {
+	height:auto;
+	width: auto;
+	margin: auto;
+	
+	max-width:400px;
+	padding: 0 10px 10px;
+	
+	background:#FFF;
+	border:1px dotted #FFF;
+}
+
+.jqmConfirmTitle{
+	margin:5px 2px;
+	height:20px;
+	color:#000;
+	background:#FFF;
+}
+.jqmConfirmTitle h1{
+	margin:5px 2px;
+	padding-left:5px;
+	padding:0;
+	font-size:14px;
+	text-transform:capitalize;
+	letter-spacing:-1px;
+	font-weight:bold;
+	color:#000;
+
+	float:left;
+	height:20px;
+}
+
+div.jqmConfirm .jqmClose em{display:none;}
+div.jqmConfirm .jqmClose {
+	width:20px;
+	height:20px;
+	display:block;
+	float:right;
+	clear:right;
+	background:transparent url(img/confirm/close_icon_double.png) 0 0 no-repeat;
+}
+
+div.jqmConfirm a.jqmClose:hover{ background-position: 0 -20px; }
+
+div.jqmConfirmContent{
+	border-top:px;
+	color:#000;
+	font:11px/14pt arial;
+	padding:5px 20px 5px;
+	margin:5px;
+	border:1px dotted #111;
+	letter-spacing:0px;
+	background:#FFF url(img/confirm/darkgrid.png);
+}
+
+/*Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°
+  clearing a float without additional markup
+   http://www.positioniseverything.net/easyclearing.html */
+
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+</style>
+
+<!-- Alert Dialog -->
+<div class="jqmAlert" id="alert">
+
+<div id="ex3b" class="jqmAlertWindow">
+    <div class="jqmAlertTitle clearfix">
+		<h1>Warning!</h1><a href="#" class="jqmClose"><em>Close</em></a>
+	</div>
+	
+	<div class="jqmAlertContent"></div>
+</div>
+
+</div>
+
+
+
+<!-- Confirm Dialog -->
+<div class="jqmConfirm" id="confirm">
+
+<div id="ex3b" class="jqmConfirmWindow">
+    <div class="jqmConfirmTitle clearfix">
+		<h1>Confirmation por favor...</h1><a href="#" class="jqmClose"><em>Close</em></a>
+	</div>
+	
+	<div class="jqmConfirmContent">
+	<p class="jqmConfirmMsg"></p>
+	<p>Continue?</p>
+	</div>
+	
+	<input type="submit" value="no" />
+	<input type="submit" value="yes" />
+	</p>
+	
+</div>
+
+</div>
+	
+<div class="src">
+<div class="js">
+<a href="#">Javascript</a>
+<pre>
+
+/* Overriding Javascript's Alert Dialog */
+
+function alert(msg) {
+  $('#alert')
+    .jqmShow()
+    .find('div.jqmAlertContent')
+      .html(msg);
+}
+
+$().ready(function() {
+  $('#alert').jqm({overlay: 0, modal: true, trigger: false});
+  
+  // trigger an alert whenever links of class alert are pressed.
+  $('a.alert').click(function() { 
+    alert('You Have triggered an alert!'); 
+    return false;
+  });
+});
+
+
+/* Overriding Javascript's Confirm Dialog */
+
+// NOTE; A callback must be passed. It is executed on &quot;cotinue&quot;. 
+//  This differs from the standard confirm() function, which returns
+//   only true or false!
+
+// If the callback is a string, it will be considered a &quot;URL&quot;, and
+//  followed.
+
+// If the callback is a function, it will be executed.
+
+
+function confirm(msg,callback) {
+  $('#confirm')
+    .jqmShow()
+    .find('p.jqmConfirmMsg')
+      .html(msg)
+    .end()
+    .find(':submit:visible')
+      .click(function(){
+        if(this.value == 'yes')
+          (typeof callback == 'string') ?
+            window.location.href = callback :
+            callback();
+        $('#confirm').jqmHide();
+      });
+}
+
+
+$().ready(function() {
+  $('#confirm').jqm({overlay: 88, modal: true, trigger: false});
+  
+  // trigger a confirm whenever links of class alert are pressed.
+  $('a.confirm').click(function() { 
+    confirm('About to visit: '+this.href+' !',this.href); 
+    return false;
+  });
+});
+</pre>
+</div>
+
+<div class="css">
+<a href="#">CSS</a>
+<pre>
+div.jqmConfirm input[type=&quot;submit&quot;] { padding: 4px; margin: 10px 30px; background: #000; color: #FFF; border: 1px solid #AAA; }
+
+/* jqModal confirm CSS courtesy of;
+   Alexandre Plennevaux &lt;alexandre@pixeline.be&gt;,
+   Brice Burgess &lt;bhb@iceburg.net&gt; */
+
+div.jqmConfirm { /* contains + positions the alert window */
+  display: none;
+  
+  position: fixed;
+  top: 17%;
+  width: 100%;
+}
+    
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html div.jqmConfirm {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+div.jqmConfirmWindow {
+  height:auto;
+  width: auto;
+  margin: auto;
+  
+  max-width:400px;
+  padding: 0 10px 10px;
+  
+  background:#FFF;
+  border:1px dotted #FFF;
+}
+
+.jqmConfirmTitle{
+  margin:5px 2px;
+  height:20px;
+  color:#000;
+  background:#FFF;
+}
+.jqmConfirmTitle h1{
+  margin:5px 2px;
+  padding-left:5px;
+  padding:0;
+  font-size:14px;
+  text-transform:capitalize;
+  letter-spacing:-1px;
+  font-weight:bold;
+  color:#000;
+
+  float:left;
+  height:20px;
+}
+
+div.jqmConfirm .jqmClose em{display:none;}
+div.jqmConfirm .jqmClose {
+  width:20px;
+  height:20px;
+  display:block;
+  float:right;
+  clear:right;
+  background:transparent url(img/confirm/close_icon_double.png) 0 0 no-repeat;
+}
+
+div.jqmConfirm a.jqmClose:hover{ background-position: 0 -20px; }
+
+div.jqmConfirmContent{
+  border-top:px;
+  color:#000;
+  font:11px/14pt arial;
+  padding:5px 20px 5px;
+  margin:5px;
+  border:1px dotted #111;
+  letter-spacing:0px;
+  background:#FFF url(img/confirm/darkgrid.png);
+}
+
+/*Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°Â°
+  clearing a float without additional markup
+   http://www.positioniseverything.net/easyclearing.html */
+
+.clearfix:after {
+    content: &quot;.&quot;; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */</pre>
+</div>
+
+<div class="html">
+<a href="#">HTML</a>
+<pre>
+&lt;a href=&quot;#&quot; class=&quot;alert&quot;&gt;view&lt;/a&gt; (alert)
+&lt;a href=&quot;#&quot; class=&quot;confirm&quot;&gt;view&lt;/a&gt; (confirm)
+...
+&lt;!-- Alert Dialog --&gt;
+&lt;div class=&quot;jqmAlert&quot; id=&quot;alert&quot;&gt;
+
+&lt;div id=&quot;ex3b&quot; class=&quot;jqmAlertWindow&quot;&gt;
+    &lt;div class=&quot;jqmAlertTitle clearfix&quot;&gt;
+    &lt;h1&gt;Warning!&lt;/h1&gt;&lt;a href=&quot;#&quot; class=&quot;jqmClose&quot;&gt;&lt;em&gt;Close&lt;/em&gt;&lt;/a&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;jqmAlertContent&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;!-- Confirm Dialog --&gt;
+&lt;div class=&quot;jqmConfirm&quot; id=&quot;confirm&quot;&gt;
+
+&lt;div id=&quot;ex3b&quot; class=&quot;jqmConfirmWindow&quot;&gt;
+    &lt;div class=&quot;jqmConfirmTitle clearfix&quot;&gt;
+    &lt;h1&gt;Confirmation por favor...&lt;/h1&gt;&lt;a href=&quot;#&quot; class=&quot;jqmClose&quot;&gt;&lt;em&gt;Close&lt;/em&gt;&lt;/a&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;jqmConfirmContent&quot;&gt;
+  &lt;p class=&quot;jqmConfirmMsg&quot;&gt;&lt;/p&gt;
+  &lt;p&gt;Continue?&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;input type=&quot;submit&quot; value=&quot;no&quot; /&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;yes&quot; /&gt;
+  &lt;/p&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;</pre>
+</div>
+</div>
+
+<div class="example">
+7. <em>External Site (iframe) usage</em> (with added bling-in-the-box)
+<br />
+Alexandre Plennevaux has posted a <a href="http://www.pixeline.be/blog/2008/javascript-loading-external-urls-in-jqmodal-jquery-plugin/">tutorial</a> on effectively using jqModal to load external sites into a popup dialog. His method updates an iframe inside a dialog with the HREF attribute of the triggering element. It is an <strong>excellent</strong> example of real-world jqModal usage. As an added bonus; the bling-factor is furthered by showing off some fancy animated transistions! Be sure to check out his <a href="http://www.pixeline.be/experiments/ThickboxToJqModal/">demonstration</a>.
+
+<br clear="both" />
+
+<div class="wwwwh">Etc.</div>
+
+<a class="anchor" name="etc"></a>
+
+
+<br /><br />
+<p><em>Support, Bugs, Contributing, Community</em></p>
+
+<dl>
+
+<dt>Support</dt>
+<dd>
+<ul>
+<li>For support, please post to stackoverflow using the jqmodal tag:</li>
+<li><a href="http://stackoverflow.com/questions/ask?tags=jqmodal">http://stackoverflow.com/questions/ask?tags=jqmodal</a></li>
+</ul>
+</dd>
+
+<dt>Issues</dt>
+<dd>
+<ul>
+<li>To report issues, please use the github issue tracker:</li>
+<li><a href="https://github.com/briceburg/jqModal/issues">https://github.com/briceburg/jqModal/issues</a></li>
+</ul>
+</dd>
+
+
+<dt>Contributing</dt>
+<dd>
+<ul>
+<li>If you would like to contribute themes or ideas please do! This website's code is on github:</li>
+<li><a href="https://github.com/iceburg-net/jquery.iceburg.net/tree/master/www-1/jqModal">https://github.com/iceburg-net/jquery.iceburg.net/tree/master/www-1/jqModal</a></li>
+</ul>
+</dd>
+
+
+<dt>Community</dt>
+<dd>
+<ul>
+<li>
+  jqModal is an open project. <strong>Community embrace is its lifeblood</strong>. Please feel free to help answer questions on <a href="http://stackoverflow.com/questions/tagged/jqmodal">stackoverflow</a> or submit your ideas to our <a href="https://github.com/briceburg/jqModal/issues">issue tracker</a>.
+  <br /><br />
+  <em>Your involvement is appreciated!</em>
+</li>
+</ul>
+</dd>
+</dl>
+
+<br /><br />
+
+
+<script type="text/javascript">
+
+// common
+$().ready(function() {
+   $('div.src a').click(function(){
+    $('~ pre',this).toggle();
+    return false;
+   });
+});
+</script>
+
+</div>
+
+</body>
+</html>
